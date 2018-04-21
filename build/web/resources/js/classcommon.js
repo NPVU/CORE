@@ -11,3 +11,8 @@ function verifyDelete(){
         return false;
     }
 }
+
+
+function closeModal(cla){
+    $('.'+cla).modal('hide');
+}

@@ -37,9 +37,6 @@ import org.slf4j.LoggerFactory;
 public class TaiKhoanController implements Serializable{
     private static final Logger log = LoggerFactory.getLogger(TaiKhoanController.class);
     
-    @ManagedProperty(value = "#{UI_UploadFileController}")
-    private UI_UploadFileController uiUploadFile;
-    
     private UIComponent uicTenDangNhap;
     
     private UIComponent uicMatKhau;
@@ -90,7 +87,7 @@ public class TaiKhoanController implements Serializable{
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
                 ec.redirect(ec.getRequestContextPath() + Constant.URL_ERROR_401);                
             } catch (IOException ex) {
-                java.util.logging.Logger.getLogger(RoleUtils.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("<<< Chưa đăng nhập >>>");
             }
         }        
     }
@@ -177,7 +174,7 @@ public class TaiKhoanController implements Serializable{
         return vaild;
     }
     
-    public void actionGetDanhSachTaiKhoan(){
+    private void actionGetDanhSachTaiKhoan(){
         log.info("***** Lấy danh sách tài khoản <actionGetDanhSachTaiKhoan> *****");
         dsTaiKhoan.clear();
         dsTaiKhoan = tkProvider.getDanhSachTaiKhoan(null, null, null);
@@ -346,16 +343,6 @@ public class TaiKhoanController implements Serializable{
 
     public void setEmailFilter(String emailFilter) {
         this.emailFilter = emailFilter;
-    }
-
-    public UI_UploadFileController getUiUploadFile() {
-        return uiUploadFile;
-    }
-
-    public void setUiUploadFile(UI_UploadFileController uiUploadFile) {
-        this.uiUploadFile = uiUploadFile;
-    }
-    
-    
+    }            
     
 }

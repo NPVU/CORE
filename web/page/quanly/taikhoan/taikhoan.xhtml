@@ -1,14 +1,14 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+      xmlns:h="http://java.sun.com/jsf/html">
     <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                     template="./../../../version_1.xhtml"
                     xmlns:h="http://xmlns.jcp.org/jsf/html"
                     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                     xmlns:b="http://bootsfaces.net/ui"
-                    xmlns:f="http://xmlns.jcp.org/jsf/core" >
+                    xmlns:f="http://xmlns.jcp.org/jsf/core"
+                    >
 
         <ui:define name="title">
             QUẢN LÝ TÀI KHOẢN
@@ -35,13 +35,7 @@
                                     <div class="box box-info">
                                         <div class="box-header with-border">
                                             <h3 class="box-title">Danh sách tài khoản</h3>
-                                        </div>
-                                        <div class="box-header box-btn" style="text-align:right">
-                                            <div>
-                                                <h:commandButton actionListener="#{taiKhoanController.preActionTaoTaiKhoan()}"
-                                                                 value="Thêm tài khoản" styleClass="btn btn-danger" />
-                                            </div>
-                                        </div>
+                                        </div>                                        
                                         <div class="box-body">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
@@ -65,6 +59,12 @@
                                                     <b:commandButton value="Tìm" icon-awesome="fa-search" 
                                                                      update="@form" process="@form" 
                                                                      actionListener="#{taiKhoanController.actionGetDanhSachTaiKhoanFilter()}"/>                                                                                            
+                                                </div>
+                                            </div>
+                                            <div class="row margin-t-5" style="text-align:right">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12s">
+                                                    <h:commandButton actionListener="#{taiKhoanController.preActionTaoTaiKhoan()}"
+                                                                     value="Thêm tài khoản" styleClass="btn btn-danger" />
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -215,7 +215,7 @@
                                                                 <b:link class="txtNote" header="* Tên tài khoản có độ dài từ #{Constant.min_tendangnhap} đến #{Constant.max_tendangnhap} ký tự" style="color:red"/>
                                                                 <b:link class="txtNote" header="* Mật khẩu có độ dài từ #{Constant.min_matkhau} đến #{Constant.max_matkhau} ký tự" style="color:red"/>
                                                                 
-                                                            </b:listLinks>
+                                                            </b:listLinks>                                                            
                                                         </div>
                                                     </b:tab>
                                                     <b:tab title="Thông tin người dùng" style="width:250px;">
@@ -265,9 +265,18 @@
                                                         </div>
                                                         <div class="col-md-1 col-lg-1"></div>
                                                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 margin-t-15">                                                            
-                                                            <b:listLinks>
-                                                                <b:link class="txtNote" header="* Các thông tin này không bắt buộc" style="color:green"/>                                                               
-                                                            </b:listLinks>
+                                                            <div class="row"> 
+                                                                <b:listLinks>
+                                                                    <b:link class="txtNote" header="* Các thông tin này không bắt buộc" style="color:green"/>                                                               
+                                                                </b:listLinks>
+                                                            </div>
+                                                            <div class="row">                                                                
+                                                                <b:button icon-awesome="fa-user" onclick="$('.modalAnhDaiDien').modal();"                                                                           
+                                                                             class="text-info margin-2 btn-lock"
+                                                                             tooltip="Cập nhật ảnh đại diện"
+                                                                             value="Cập nhật ảnh đại diện">                                                                           
+                                                                </b:button>
+                                                            </div>
                                                         </div>
                                                     </b:tab>
                                                     <b:tab title="Thiết lập quyền" style="width:250px;">
@@ -306,11 +315,19 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>
+                            <b:modal id="modalAnhDaiDien"
+                                     styleClass="modalAnhDaiDien IframeUpload"
+                                     title="Cập nhật ảnh đại diện">                                                               
+                                <iframe src="#{request.contextPath}/faces/page/UI_UploadFile.xhtml"
+                                        frameborder="0" width="100%"/>
+                            </b:modal>    
+                            
                         </b:form>
                         <h:form style="display:none;">
                             <h:commandButton styleClass="btnTroVe" actionListener="#{taiKhoanController.actionChangeViewMode(0)}"/>
                         </h:form>
+                        
                     </b:panel>
 
                 </section>

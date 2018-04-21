@@ -70,7 +70,6 @@ a:hover {
         width: 100% !important;
     }
 }
-
 /*
     Customize Bootfaces Css
 */
@@ -124,3 +123,9 @@ button .btn-edit,button .btn-lock,button .btn-unlock,button .btn-delete {
     background-color: yellowgreen !important; 
     border-color: yellowgreen !important;
 }
+
+/* CSS FOR TEXT COLOR */
+.text-info {
+    color: #31708f !important;
+}
+/* END CSS FOR TEXT COLOR */

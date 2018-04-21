@@ -3,12 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/WEB1801/web/page/quanly/taikhoan/taikhoan.xhtml</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/WEB1801/web/META-INF/context.xml</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/WEB1801/src/java/npvu/controller/TaiKhoanController.java</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/WEB1801/web/WEB-INF/faces-config.xml</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/WEB1801/nbproject/build-impl.xml</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/WEB1801/web/WEB-INF/web.xml</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/controller/UI_UploadFileController.java</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/page/UI_UploadFile.xhtml</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/META-INF/context.xml</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/page/quanly/taikhoan/taikhoan.xhtml</file>
         </group>
     </open-files>
 </project-private>
