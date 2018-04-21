@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <h:outputStylesheet name="css/bootstrap/bootstrap.min.css" library="resources"/>
+        <h:outputStylesheet name="css/_all-skins.min.css" library="resources"/>
+        <h:outputStylesheet name="css/AdminLTE.css" library="resources" />
+        <h:outputStylesheet name="css/style.css" library="resources"/>
+        <title>LỖI 401</title>
+    </h:head>
+    <section class="content">
+        <div class="error-page">
+            <h2 class="headline text-yellow">401</h2>
+
+            <div class="error-content">
+                <h3><i class="fa fa-warning text-yellow"></i> Oops! Bạn không có quyền truy cập trang này.</h3>
+                <p>
+                    Nếu như bạn có quyền truy cập, vui lòng liên hệ ban quản trị.
+                    Hoặc <a href="#{request.contextPath}/" class="logo">Trở về trang chủ.</a>
+                </p>
+            </div>
+        </div>
+    </section>
+</html>

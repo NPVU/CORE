@@ -1,0 +1,126 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Jan 26, 2018, 2:20:05 PM
+    Author     : npvu
+*/
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td {
+    border:1px solid #ddd !important
+}
+.form-inline label, input {
+    margin-right: 0px !important;
+}
+.margin-2 {
+    margin: 2px;
+}
+.margin-r-5 {
+    margin-right: 5px !important;
+}
+.margin-t-5 {
+    margin-top: 5px !important;
+}
+.margin-t-10 {
+    margin-top: 10px !important;
+}
+.margin-t-15 {
+    margin-top: 15px !important;
+}
+.margin-l-r-2 {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.bficon-error-circle-o:before {
+    color: #ffffff !important;
+    content: "\e088";
+}
+.required {
+    border-left: 3px solid red;
+}
+.dataTables_filter {
+        text-align: left !important;
+}
+a:hover {
+    text-decoration: none !important;
+}
+.btn-add-position {
+    position: absolute !important;
+}
+@media screen and (max-width: 767px){
+    .dataTables_filter {
+        text-align: left !important;
+    }
+}
+@media screen and (max-width: 400px){
+    .btn-add-position {
+        position: static !important;
+    }
+    .dataTables_filter {
+        text-align: right !important;
+    }
+    table {
+        width: 100% !important;
+    }
+}
+
+/*
+    Customize Bootfaces Css
+*/
+.input-group .input-group-addon {
+    border-left: 3px solid red;
+}
+.input-group .removeRequiredCSS {
+    border-left: 1px solid #ccc !important;
+}
+.content-header > h1{
+    color: #565656 !important;
+}
+
+.verify-lock .modal-body {
+    height: 120px;
+}
+
+.box-body .tableDanhSachTaiKhoan{
+    width: 100% !important;
+}
+.bf-message {
+    margin-bottom: 20px !important;
+}
+
+.unstyle-label {
+    font-weight: normal !important;
+}
+
+input + label {
+    margin-right: 10px !important;
+    font-weight: normal !important;
+}
+.txtNote {
+    padding: 0px !important;
+}
+/* CSS FOR BUTTON #button */
+.btn-danger {
+    color: #ffffff !important;
+}
+.btn {
+    min-width:100px !important;
+}
+.box-header + .box-btn{
+   
+}
+button .btn-edit,button .btn-lock,button .btn-unlock,button .btn-delete {
+    max-width: 40px !important;
+}
+
+.alert-info {
+    background-color: yellowgreen !important; 
+    border-color: yellowgreen !important;
+}
