@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
  * @author npvu
  */
 @Entity
-@Table(name = "taikhoan")
+@Table(name = "taptin")
 public class TapTinModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "taptin_taptin_id_seq")
@@ -32,8 +32,11 @@ public class TapTinModel implements Serializable {
     @Column(name = "taptin_ten")
     private String ten;
     
-    @Column(name = "taptin_url")
-    private String url;
+    @Column(name = "taptin_tenluu")
+    private String tenLuuTru;
+    
+    @Column(name = "taptin_path")
+    private String path;
     
     @Column(name = "taptin_type")
     private String type;
@@ -44,7 +47,10 @@ public class TapTinModel implements Serializable {
     @Column(name = "taptin_ngaytao")
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date ngayTao;
-
+    
+    @Column(name = "taptin_extension")
+    private String extension;
+    
     public long getId() {
         return id;
     }
@@ -61,12 +67,12 @@ public class TapTinModel implements Serializable {
         this.ten = ten;
     }
 
-    public String getUrl() {
-        return url;
+    public String getPath() {
+        return path;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setPath(String path) {
+        this.path = path;
     }
 
     public String getType() {
@@ -91,5 +97,21 @@ public class TapTinModel implements Serializable {
 
     public void setNgayTao(Date ngayTao) {
         this.ngayTao = ngayTao;
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getTenLuuTru() {
+        return tenLuuTru;
+    }
+
+    public void setTenLuuTru(String tenLuuTru) {
+        this.tenLuuTru = tenLuuTru;
     }
 }

@@ -225,7 +225,12 @@ and open the template in the editor.
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                <h:graphicImage library="resources" name="img/user2-160x160.jpg" styleClass="user-image" alt="User Image"/>
+                <h:graphicImage library="resources" name="#{FileConstant.path_upload_avatar}#{Login.objTapTin.tenLuuTru}"
+                                class="user-image" alt="User Image"
+                                rendered="#{Login.logined}"/>
+                <h:graphicImage library="resources" name="img/user2-160x160.jpg"
+                                class="user-image" alt="User Image"
+                                rendered="#{!Login.logined}"/>
                 <span class="hidden-xs">#{Login.tenHienThi}</span>
             </a>
             <ul class="dropdown-menu">

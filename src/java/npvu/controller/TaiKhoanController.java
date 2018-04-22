@@ -18,9 +18,11 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
+import npvu.constant.FileConstant;
 import npvu.dataprovider.RoleDataProvider;
 import npvu.dataprovider.TaiKhoanDataProvider;
 import npvu.model.TaiKhoanModel;
+import npvu.session.Session;
 import npvu.util.DateUtils;
 import npvu.util.EncryptionUtils;
 import npvu.util.RoleUtils;
@@ -36,6 +38,9 @@ import org.slf4j.LoggerFactory;
 @ViewScoped
 public class TaiKhoanController implements Serializable{
     private static final Logger log = LoggerFactory.getLogger(TaiKhoanController.class);
+    
+    @ManagedProperty(value="#{UI_UploadFileController}")
+    private UI_UploadFileController uiUploadFile;
     
     private UIComponent uicTenDangNhap;
     
@@ -82,14 +87,7 @@ public class TaiKhoanController implements Serializable{
         if(roleUtils.checkRole(Constant.ROLE_ADMIN_TAIKHOAN)){
             actionGetDanhSachTaiKhoan();
             viewMode = 0;
-        } else {
-            try {
-                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + Constant.URL_ERROR_401);                
-            } catch (IOException ex) {
-                log.error("<<< Chưa đăng nhập >>>");
-            }
-        }        
+        } 
     }
     
     public void preActionTaoTaiKhoan(){
@@ -113,8 +111,13 @@ public class TaiKhoanController implements Serializable{
     
     public void actionUpdateTaiKhoan(){
         log.info("***** Tạo tài khoản mới <actionUpdateTaiKhoan> *****");
+        long tapTinID;
         objTaiKhoan.setNgayTao(DateUtils.getCurrentDate());
         if ( editMode || actionVaildFormTaoTaiKhoan()) {
+            if(Session.uploaded){
+                tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_AVATAR);
+                objTaiKhoan.setTapTinID(tapTinID);
+            }
             if(!editMode){
                 objTaiKhoan.setMatKhau(EncryptionUtils.encryptMatKhau(objTaiKhoan.getMatKhau()));
             }            
@@ -344,5 +347,13 @@ public class TaiKhoanController implements Serializable{
     public void setEmailFilter(String emailFilter) {
         this.emailFilter = emailFilter;
     }            
+
+    public UI_UploadFileController getUiUploadFile() {
+        return uiUploadFile;
+    }
+
+    public void setUiUploadFile(UI_UploadFileController uiUploadFile) {
+        this.uiUploadFile = uiUploadFile;
+    }
     
 }

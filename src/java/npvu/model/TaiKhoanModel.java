@@ -78,6 +78,9 @@ public class TaiKhoanModel implements Serializable {
     @Column(name = "taikhoan_email")
     private String email;
     
+    @Column(name = "taptin_id")
+    private long tapTinID;
+    
     @Transient
     private List<Integer> roleID;
 
@@ -207,6 +210,14 @@ public class TaiKhoanModel implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public long getTapTinID() {
+        return tapTinID;
+    }
+
+    public void setTapTinID(long tapTinID) {
+        this.tapTinID = tapTinID;
     }
 
 }

@@ -6,19 +6,23 @@
 package npvu.util;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.Serializable;
+import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
 import npvu.controller.Login;
 import npvu.dataprovider.RoleDataProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author npvu
  */
-public class RoleUtils {
+public class RoleUtils implements Serializable{
+    
+    private static final Logger log = LoggerFactory.getLogger(RoleUtils.class);
     
     private final RoleDataProvider roleProvider = new RoleDataProvider();
     
@@ -35,7 +39,7 @@ public class RoleUtils {
                 ec.redirect(ec.getRequestContextPath() + Constant.URL_DANGNHAP);
                 return false;
             } catch (IOException ex) {
-                Logger.getLogger(RoleUtils.class.getName()).log(Level.SEVERE, null, ex);
+                log.error("<<< Chưa đăng nhập >>>");
             }
         } else {
             arrRole = Login.roles;
@@ -45,6 +49,12 @@ public class RoleUtils {
                 }
             }
         }        
+        try {
+                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                ec.redirect(ec.getRequestContextPath() + Constant.URL_ERROR_401);                 
+            } catch (IOException ex) {
+                log.error("<<< Không có quyền truy cập >>>");
+            }
         return false;
     }
 }

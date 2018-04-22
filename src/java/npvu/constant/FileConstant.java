@@ -19,13 +19,21 @@ public class FileConstant {
     public static final String[] ALLOW_EXTENSION        = {".doc",".docx",".xls",".xlsx",".pdf",".png",".jpg"};
     
     
-    private String path_upload_temp                      = PATH_UPLOAD_TEMP;
-
+    private String path_upload_temp                     = PATH_UPLOAD_TEMP;
+    private String path_upload_avatar                   = PATH_UPLOAD_AVATAR;
     public String getPath_upload_temp() {
         return path_upload_temp;
     }
 
     public void setPath_upload_temp(String path_upload_temp) {
         this.path_upload_temp = path_upload_temp;
+    }
+
+    public String getPath_upload_avatar() {
+        return path_upload_avatar;
+    }
+
+    public void setPath_upload_avatar(String path_upload_avatar) {
+        this.path_upload_avatar = path_upload_avatar;
     }
 }

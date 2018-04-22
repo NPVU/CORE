@@ -16,3 +16,7 @@ function verifyDelete(){
 function closeModal(cla){
     $('.'+cla).modal('hide');
 }
+
+function showImage(cla, sr){
+    $('img.'+cla).attr('src',sr);
+}

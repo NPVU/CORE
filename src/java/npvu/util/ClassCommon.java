@@ -16,4 +16,8 @@ public class ClassCommon {
     public static String getRealPath(){
         return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/");
     }
+    
+    public static String getPathResources(){
+        return FacesContext.getCurrentInstance().getExternalContext().getRealPath("/resources/");
+    }
 }
