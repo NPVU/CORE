@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.nio.file.Files;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
@@ -20,12 +19,14 @@ import javax.faces.bean.ViewScoped;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
 import npvu.constant.FileConstant;
+import npvu.constant.MessageConstant;
 import npvu.dataprovider.TapTinDataProvider;
 import npvu.model.TapTinModel;
 import npvu.session.Session;
 import npvu.util.ClassCommon;
 import npvu.util.DateUtils;
 import npvu.util.FileUtils;
+import npvu.util.ShowGrowlUtils;
 
 
 /**
@@ -40,6 +41,8 @@ public class UI_UploadFileController implements Serializable{
     private TapTinModel objTapTin;
     
     private final TapTinDataProvider tapTinProvider = new TapTinDataProvider();
+    
+    private final ShowGrowlUtils showGrowl = new ShowGrowlUtils();
     
     private Part file;
     
@@ -68,22 +71,26 @@ public class UI_UploadFileController implements Serializable{
         fileRealName   = getFileName(file);
         fileName       = ranNumber + "_" + getFileName(file);
         pathFile       = pathUpload + fileName; 
-        InputStream inputStream = file.getInputStream();        
-        FileOutputStream outputStream = new FileOutputStream(pathFile);
-         
-        byte[] buffer = new byte[4096];        
-        int bytesRead = 0;
-        while(true) {                        
-            bytesRead = inputStream.read(buffer);
-            if(bytesRead > 0) {
-                outputStream.write(buffer, 0, bytesRead);
-            }else {
-                break;
-            }                       
+        if(FileUtils.checkExtension(FileUtils.getExtension(fileRealName), FileConstant.ALLOW_EXTENSION_IMAGE)){
+            InputStream inputStream = file.getInputStream();        
+            FileOutputStream outputStream = new FileOutputStream(pathFile);
+
+            byte[] buffer = new byte[4096];        
+            int bytesRead = 0;
+            while(true) {                        
+                bytesRead = inputStream.read(buffer);
+                if(bytesRead > 0) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }else {
+                    break;
+                }                       
+            }
+            outputStream.close();
+            inputStream.close();
+            setValueFileToSession();
+        } else {
+            showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_EXTENSION_AVATAR);
         }
-        outputStream.close();
-        inputStream.close();
-        setValueFileToSession();
     }
     
     private static String getFileName(Part part) {

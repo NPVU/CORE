@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import npvu.constant.MessageConstant;
 import npvu.dataprovider.RoleDataProvider;
 import npvu.dataprovider.TaiKhoanDataProvider;
 import npvu.dataprovider.TapTinDataProvider;
@@ -82,7 +83,7 @@ public class Login implements Serializable{
                 thoiGian        = Calendar.getInstance().getTime();
                 roles           = roleProvider.getDanhSachRoleByTaiKhoan(objTaiKhoan.getId());
                 tempTaiKhoan    = null;               
-                showGrow.showMessageSuccess("Đăng nhập thành công !.");
+                showGrow.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_LOGIN);
                 try {
                     ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
                     ec.redirect(ec.getRequestContextPath() + "/");
@@ -92,11 +93,11 @@ public class Login implements Serializable{
                 
             } else {
                 // Sai mật khẩu
-                showGrow.showMessageError("Mật khẩu không đúng, vui lòng kiểm tra lại thông tin !.");
+                showGrow.showMessageError(MessageConstant.MESSAGE_PASSWORD_FALSE);
             }
         } else {
             // Tài khoản không tồn tại
-            showGrow.showMessageError("Tên đăng nhập không tồn tại, vui lòng kiểm tra lại thông tin !.");
+            showGrow.showMessageError(MessageConstant.MESSAGE_USERNAME_NOT_EXISTS);
         }
         tempMatKhau = null;
     }

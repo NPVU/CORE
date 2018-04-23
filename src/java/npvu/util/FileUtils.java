@@ -19,4 +19,13 @@ public class FileUtils {
         }
         return extension;
     }
+    
+    public static boolean checkExtension(String extension, String[] allowExtension){       
+        for(String ext : allowExtension){
+            if(extension.equals(ext)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

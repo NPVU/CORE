@@ -19,6 +19,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
 import npvu.constant.FileConstant;
+import npvu.constant.MessageConstant;
 import npvu.dataprovider.RoleDataProvider;
 import npvu.dataprovider.TaiKhoanDataProvider;
 import npvu.model.TaiKhoanModel;
@@ -122,9 +123,9 @@ public class TaiKhoanController implements Serializable{
                 objTaiKhoan.setMatKhau(EncryptionUtils.encryptMatKhau(objTaiKhoan.getMatKhau()));
             }            
             if (tkProvider.updateTaiKhoan(objTaiKhoan, true, selectRoles)) {
-                showGrowl.showMessageSuccess("Cập nhật tài khoản thành công !");
+                showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
             } else {
-                showGrowl.showMessageFatal("Cập nhật tài khoản thất bại, Vui lòng thử lại !");
+                showGrowl.showMessageFatal(MessageConstant.MESSAGE_FAIL_UPDATE);
             }
         } else {
             return;
@@ -145,7 +146,7 @@ public class TaiKhoanController implements Serializable{
             vaild = false;
         }
         if(tkProvider.checkExistTenDangNhap(objTaiKhoan.getTenDangNhap())){
-            showGrowl.showMessageError("Tên đăng nhập đã tồn tại !", uicTenDangNhap);
+            showGrowl.showMessageError(MessageConstant.MESSAGE_USERNAME_EXISTS, uicTenDangNhap);
             vaild = false;
         }
         /* Kết thúc kiểm tra tên đăng nhập */
@@ -164,8 +165,8 @@ public class TaiKhoanController implements Serializable{
             vaild = false;
         }        
         if(!objTaiKhoan.getMatKhau().equals(passTemp)){
-            showGrowl.showMessageError("Mật khẩu không khớp !", uicMatKhau);
-            showGrowl.showMessageError("Mật khẩu không khớp !", uicReMatKhau);
+            showGrowl.showMessageError(MessageConstant.MESSAGE_PASSWORD_NOT_SAME, uicMatKhau);
+            showGrowl.showMessageError(MessageConstant.MESSAGE_PASSWORD_NOT_SAME, uicReMatKhau);
             vaild = false;
             objTaiKhoan.setMatKhau("");
             passTemp = "";            
