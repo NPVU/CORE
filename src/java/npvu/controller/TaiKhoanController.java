@@ -5,18 +5,14 @@
  */
 package npvu.controller;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
 import npvu.constant.FileConstant;
 import npvu.constant.MessageConstant;
@@ -115,7 +111,7 @@ public class TaiKhoanController implements Serializable{
         long tapTinID;
         objTaiKhoan.setNgayTao(DateUtils.getCurrentDate());
         if ( editMode || actionVaildFormTaoTaiKhoan()) {
-            if(Session.uploaded){
+            if(Session.statusUpload != null && Session.statusUpload == true){
                 tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_AVATAR);
                 objTaiKhoan.setTapTinID(tapTinID);
             }
@@ -131,6 +127,7 @@ public class TaiKhoanController implements Serializable{
             return;
         }    
         resetValue();
+        UI_UploadFileController.resetValueFileToSession();
         actionGetDanhSachTaiKhoan();
         viewMode = 0;        
     }

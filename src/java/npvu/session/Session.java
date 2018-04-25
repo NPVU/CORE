@@ -16,7 +16,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean(name="Session")
 @SessionScoped
 public class Session implements Serializable{
-    public static boolean uploaded;
+    public static Boolean statusUpload;
     public static String pathFile;
     public static String fileName;
     public static String fileRealName;

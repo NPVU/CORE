@@ -19,6 +19,7 @@ public class FileConstant {
     public static final String[] ALLOW_EXTENSION        = {".doc",".docx",".xls",".xlsx",".pdf",".png",".jpg"};
     public static final String[] ALLOW_EXTENSION_IMAGE  = {".png",".jpg",".git",".ico",".icon"};
     
+    public static final String DAUCACH_TENFILE          = "_";
     
     private String path_upload_temp                     = PATH_UPLOAD_TEMP;
     private String path_upload_avatar                   = PATH_UPLOAD_AVATAR;
