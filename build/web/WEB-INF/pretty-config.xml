@@ -22,20 +22,25 @@ and open the template in the editor.
     
     <url-mapping id="QuanLyTaiKhoan_1">
         <pattern value="/quan-ly/tai-khoan/" />
-        <view-id value="/faces/page/quanly/taikhoan/taikhoan.xhtml" />
+        <view-id value="/faces/page/quanly/taikhoan/TaiKhoan.xhtml" />
     </url-mapping>
     <url-mapping id="QuanLyTaiKhoan_2">
         <pattern value="/manager/account/" />
-        <view-id value="/faces/page/quanly/taikhoan/taikhoan.xhtml" />
+        <view-id value="/faces/page/quanly/taikhoan/TaiKhoan.xhtml" />
     </url-mapping>
     
     <url-mapping id="LichSuDangNhap_1">
         <pattern value="/quan-ly/lich-su-dang-nhap/" />
-        <view-id value="/faces/page/quanly/taikhoan/lichsudangnhap.xhtml" />
+        <view-id value="/faces/page/quanly/taikhoan/LichSuDangNhap.xhtml" />
     </url-mapping>
     <url-mapping id="LichSuDangNhap_2">
         <pattern value="/manager/history/" />
-        <view-id value="/faces/page/quanly/taikhoan/lichsudangnhap.xhtml" />
+        <view-id value="/faces/page/quanly/taikhoan/LichSuDangNhap.xhtml" />
+    </url-mapping>
+    
+    <url-mapping id="DanhMucBaiViet">
+        <pattern value="/quan-ly/danh-muc-bai-viet/" />
+        <view-id value="/faces/page/quanly/baiviet/DanhMucBaiViet.xhtml" />
     </url-mapping>
     
     <url-mapping id="error401">

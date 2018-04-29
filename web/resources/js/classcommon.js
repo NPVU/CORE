@@ -17,9 +17,6 @@ function closeModal(cla){
     $('.'+cla).modal('hide');
 }
 
-function showMessageStatusUpload(){
-    $('.btnShowMessage').click();
-}
 
 function showImage(cla, sr){
     $('img.'+cla).attr('src',sr);

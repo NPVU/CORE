@@ -328,12 +328,8 @@
                             </b:modal>    
                             
                         </b:form>
-                        <h:form >
-                            <b:growl showDetail="true" severity="fatal"  showSummary="false" delay="3000"/>
-                            <h:commandButton styleClass="btnTroVe" actionListener="#{taiKhoanController.actionChangeViewMode(0)}" style="display:none;"/>
-                            <h:commandButton styleClass="btnShowMessage" style="display:none;">
-                                <f:ajax listener="#{UI_UploadFileController.showMessageStatusUploadFile()}" render="@form"/>
-                            </h:commandButton>
+                        <h:form style="display:none;">
+                            <h:commandButton styleClass="btnTroVe" actionListener="#{taiKhoanController.actionChangeViewMode(0)}"/>                            
                         </h:form>
                         
                     </b:panel>

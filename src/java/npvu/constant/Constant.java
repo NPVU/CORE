@@ -25,9 +25,13 @@ public class Constant {
     public static final int ROLE_GUEST                     = 100;
     public static final int ROLE_FULL                      = 1;
     public static final int ROLE_ADMIN_TAIKHOAN            = 2;
+    public static final int ROLE_ADMIN_BAIVIET             = 3;
     
     public static final String URL_DANGNHAP                = "/dang-nhap/";     /* Chú ý dấu "/" ở 2 đầu */
     
+    public static final int    CODE_ERROR_401              = 401;
+    public static final int    CODE_ERROR_403              = 403;
+    public static final int    CODE_ERROR_404              = 404;
     public static final String URL_ERROR_401               = "/error/401/";
     public static final String URL_ERROR_403               = "/error/403/";
     public static final String URL_ERROR_404               = "/error/404/";

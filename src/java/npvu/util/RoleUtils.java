@@ -7,7 +7,6 @@ package npvu.util;
 
 import java.io.IOException;
 import java.io.Serializable;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
@@ -36,9 +35,11 @@ public class RoleUtils implements Serializable{
         if(!Login.logined){
             try {
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + Constant.URL_DANGNHAP);
+                if(!ec.isResponseCommitted()){
+                    ec.redirect(ec.getRequestContextPath() + Constant.URL_DANGNHAP);
+                } 
                 return false;
-            } catch (IOException ex) {
+            } catch (IOException ex) {;               
                 log.error("<<< Chưa đăng nhập >>>");
             }
         } else {

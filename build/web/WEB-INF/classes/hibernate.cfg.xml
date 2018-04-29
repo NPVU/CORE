@@ -47,5 +47,6 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/web1801?characterEncoding=UTF-8</property>
     <mapping class="npvu.model.TaiKhoanModel"/>
     <mapping class="npvu.model.TapTinModel"/>
+    <mapping class="npvu.model.DanhMucBaiVietModel"/>
   </session-factory>
 </hibernate-configuration>

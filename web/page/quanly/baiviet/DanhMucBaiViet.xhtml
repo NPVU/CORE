@@ -1,0 +1,187 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <ui:composition template="./../../../version_1.xhtml"
+                    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                    xmlns:h="http://xmlns.jcp.org/jsf/html"
+                    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                    xmlns:b="http://bootsfaces.net/ui"
+                    xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+        <ui:define name="title">
+            DANH MỤC BÀI VIẾT
+        </ui:define>
+
+        <ui:define name="content">
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        DANH MỤC BÀI VIẾT
+                        <small>Preview</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#{request.contextPath}/"><i class="fa fa-dashboard"></i> Home</a></li>
+                        <li class="active"><a href="#{request.contextPath}/quan-ly/danh-muc-bai-viet/">Danh mục bài viết</a></li>
+                    </ol>
+                </section>
+                <section class="content">
+                    <b:panel>
+                        <b:form id="formDanhSachDanhMucBaiViet" rendered="#{DanhMucBaiVietController.viewMode == 0}">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">Danh sách danh mục bài viết</h3>
+                                        </div>                                        
+                                        <div class="box-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <b:inputText label="Tên danh mục" labelStyle="width:100px;"
+                                                                 placeholder="Nhập tên danh mục cần tìm..."
+                                                                 value="#{DanhMucBaiVietController.tenDanhMucFilter}"/>                                                     
+                                                </div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                    <b:inputText label="Tên hiển thị" labelStyle="width:100px;"
+                                                                 placeholder="Nhập tên hiển thị cần tìm..."
+                                                                 value="#{DanhMucBaiVietController.trangThaiFilter}"/>                                                     
+                                                </div>                                                                                                    
+                                            </div>
+                                            <div class="row margin-t-5">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                                    <b:commandButton value="Tìm" icon-awesome="fa-search" 
+                                                        update="@form" process="@form" 
+                                                        actionListener="#{DanhMucBaiVietController.actionGetDanhSachDanhMucBaiVietFilter()}"/>
+                                                </div>
+                                            </div>
+                                            <div class="row margin-t-5" style="text-align:right">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12s">
+                                                    <h:commandButton actionListener="#{DanhMucBaiVietController.preActionThemDanhMuc()}"
+                                                        value="Thêm danh mục" styleClass="btn btn-danger" />
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                    <b:dataTable id="tableDanhSachDanhMucBaiViet" class="tableDanhSachDanhMucBaiViet"
+                                                                 value="#{DanhMucBaiVietController.dsDMBaiViet}"
+                                                                 searching="false"                                                         
+                                                                 responsive="true"
+                                                                 customLangUrl="#{request.contextPath}/resources/bootsfaces/language/vietnamese.json"
+                                                                 var="item">                                                        
+                                                        <b:dataTableColumn headerStyleClass="text-center" >
+                                                            <f:facet name="header">Tên danh mục</f:facet>
+                                                            #{item.ten}
+                                                        </b:dataTableColumn>
+                                                        <b:dataTableColumn styleClass="text-center" >
+                                                            <f:facet name="header">Trạng thái</f:facet>
+                                                            <h:outputText value="Đã kích hoạt" rendered="#{item.trangThai}" />
+                                                            <h:outputText value="Chưa kích hoạt" rendered="#{!item.trangThai}" />
+                                                        </b:dataTableColumn>                                                           
+                                                        <b:dataTableColumn styleClass="text-center" >
+                                                            <f:facet name="header">Ngày tạo</f:facet>
+                                                            <h:outputText value="#{item.ngayTao}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                            </h:outputText>
+                                                        </b:dataTableColumn>                                                       
+                                                        <b:dataTableColumn styleClass="text-center" orderable="false">
+                                                            <f:facet name="header">Hành động</f:facet>
+                                                            <!--<b:commandLink icon-awesome="fa-edit" />-->                                                                                                               
+                                                        </b:dataTableColumn>
+                                                    </b:dataTable>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
+                            <b:modal class="verify-delete" title="YÊU CẦU XÁC NHẬN">
+                                <div class="row text-center">
+                                    <label>
+                                        <h4>Bạn có đồng ý xóa danh mục này ?</h4>
+                                    </label>
+                                </div>
+                                <div class="row text-center">
+                                    <b:commandButton icon-awesome="fa-save"
+                                        value="Đồng ý"
+                                        class="btn-danger margin-2"
+                                        onclick="$('.verify-delete').modal('hide');">
+
+                                        <f:ajax listener="#{taiKhoanController.actionLockUnLockTaiKhoan(taiKhoanController.objTaiKhoan)}" />
+                                    </b:commandButton>
+                                    <b:button icon-awesome="fa-close"
+                                              value="Hủy bỏ"
+                                              class="btn-default margin-2"
+                                              onclick="$('.verify-delete').modal('hide');">                                        
+                                    </b:button>
+                                </div>
+                            </b:modal>
+                        </b:form>
+
+
+                        <b:form id="formThemDanhMucBaiViet" rendered="#{DanhMucBaiVietController.viewMode == 1}">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div class="box box-info">
+                                        <div class="box-header with-border">
+                                            <h3 class="box-title">#{DanhMucBaiVietController.editMode? 'Chỉnh sửa danh mục bài viết':'Thêm danh mục bài viết'}</h3>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                                                
+                                                <div class="col-md-1 col-lg-1"></div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
+                                                    <h:outputLabel value="Tên danh mục" />
+                                                    <b:inputText  id="txtTenDanhMuc"
+                                                                  value="#{DanhMucBaiVietController.objDMBaiViet.ten}"
+                                                                  required="true"
+                                                                  requiredMessage="Vui lòng nhập tên danh mục !"
+                                                                  a:placeholder="Nhập tên danh mục ...">
+                                                        <f:facet name="prepend">
+                                                            <b:iconAwesome name="fa-user" />
+                                                        </f:facet>
+                                                    </b:inputText>
+                                                    <b:message for="txtTenDanhMuc" />
+                                                </div>
+                                                <div class="col-md-1 col-lg-1"></div>
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 margin-t-15">                                                            
+                                                    <b:listLinks>
+                                                        <b:link class="txtNote" header="* Tên tài khoản có độ dài từ #{Constant.min_tendangnhap} đến #{Constant.max_tendangnhap} ký tự" style="color:red"/>
+                                                        <b:link class="txtNote" header="* Mật khẩu có độ dài từ #{Constant.min_matkhau} đến #{Constant.max_matkhau} ký tự" style="color:red"/>
+
+                                                    </b:listLinks>                                                            
+                                                </div>
+
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                <div class="col-md-1 col-lg-1"></div>
+                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
+<!--                                                    <b:commandButton styleClass="btn btn-danger margin-2"
+                                                                     value="Cập nhật"
+                                                                     icon-awesome="fa-save"                                                                     
+                                                                     >                                                                                                                             
+                                                    </b:commandButton>-->
+                                                    <b:button class="btn-back margin-2"
+                                                              value="Trở về"
+                                                              icon-awesome="fa-reply-all" onclick="$('.btnTroVe').click()">                                                                     
+                                                    </b:button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </b:form>
+                        <h:form style="display:none;">
+                            <h:commandButton styleClass="btnTroVe" actionListener="#{DanhMucBaiVietController.actionChangeViewMode(0)}"/>                            
+                        </h:form>
+                        <h:form rendered="#{DanhMucBaiVietController.viewMode == 401}">
+                            <ui:include src="../../error/401.xhtml"></ui:include>
+                        </h:form>
+                    </b:panel>
+                </section>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+</html>
