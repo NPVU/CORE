@@ -24,6 +24,7 @@ import npvu.util.DateUtils;
 import npvu.util.EncryptionUtils;
 import npvu.util.RoleUtils;
 import npvu.util.ShowGrowlUtils;
+import npvu.util.ValidateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -134,12 +135,15 @@ public class TaiKhoanController implements Serializable{
     
     public boolean actionVaildFormTaoTaiKhoan(){
         boolean vaild = true;    
-        
+        ValidateUtils valiUtils = new ValidateUtils();
         /* Bắt đầu kiểm tra tên đăng nhập */
         if(objTaiKhoan.getTenDangNhap().length() < Constant.MIN_TENDANGNHAP
                 || objTaiKhoan.getTenDangNhap().length() > Constant.MAX_TENDANGNHAP){
-            showGrowl.showMessageError("Tên đăng nhập có độ dài từ "+Constant.MIN_TENDANGNHAP+""
-                    + " đến "+Constant.MAX_TENDANGNHAP+" ký tự !", uicTenDangNhap);
+            showGrowl.showMessageError("Tên đăng nhập " + MessageConstant.MESSAGE_ERROR_STR_LENGTH, uicTenDangNhap);
+            vaild = false;
+        }
+        if(valiUtils.checkSpecialChar(objTaiKhoan.getTenDangNhap())){
+            showGrowl.showMessageError("Tên đăng nhập " + MessageConstant.MESSAGE_ERROR_SPECIAL_CHAR, uicTenDangNhap);
             vaild = false;
         }
         if(tkProvider.checkExistTenDangNhap(objTaiKhoan.getTenDangNhap())){
@@ -151,14 +155,12 @@ public class TaiKhoanController implements Serializable{
         /* Bắt đầu kiểm tra mật khẩu */
         if(objTaiKhoan.getMatKhau().length() < Constant.MIN_MATKHAU
                 || objTaiKhoan.getMatKhau().length() > Constant.MAX_MATKHAU){
-            showGrowl.showMessageError("Tên đăng nhập có độ dài từ "+Constant.MIN_MATKHAU+""
-                    + " đến "+Constant.MAX_MATKHAU+" ký tự !", uicMatKhau);
+            showGrowl.showMessageError("Mật khẩu " + MessageConstant.MESSAGE_ERROR_STR_LENGTH, uicMatKhau);
             vaild = false;
         }
         if(passTemp.length() < Constant.MIN_MATKHAU
                 || passTemp.length() > Constant.MAX_MATKHAU){
-            showGrowl.showMessageError("Tên đăng nhập có độ dài từ "+Constant.MIN_MATKHAU+""
-                    + " đến "+Constant.MAX_MATKHAU+" ký tự !", uicReMatKhau);
+            showGrowl.showMessageError("Mật khẩu " + MessageConstant.MESSAGE_ERROR_STR_LENGTH, uicReMatKhau);
             vaild = false;
         }        
         if(!objTaiKhoan.getMatKhau().equals(passTemp)){

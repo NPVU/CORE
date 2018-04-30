@@ -74,7 +74,7 @@ a:hover {
     Customize Bootfaces Css
 */
 .input-group .input-group-addon {
-    border-left: 3px solid red;
+    border-left: 3px solid red !important;
 }
 .input-group .removeRequiredCSS {
     border-left: 1px solid #ccc !important;
@@ -87,7 +87,7 @@ a:hover {
     height: 120px;
 }
 
-.box-body .tableDanhSachTaiKhoan{
+.box-body table{
     width: 100% !important;
 }
 .bf-message {

@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
  * @author npvu
  */
 @Entity
-@Table(name = "taikhoan")
+@Table(name = "danhmuc_baiviet")
 public class DanhMucBaiVietModel implements Serializable{
     
     @Id

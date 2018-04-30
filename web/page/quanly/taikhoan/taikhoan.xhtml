@@ -212,9 +212,10 @@
                                                         <div class="col-md-1 col-lg-1"></div>
                                                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 margin-t-15">                                                            
                                                             <b:listLinks>
-                                                                <b:link class="txtNote" header="* Tên tài khoản có độ dài từ #{Constant.min_tendangnhap} đến #{Constant.max_tendangnhap} ký tự" style="color:red"/>
-                                                                <b:link class="txtNote" header="* Mật khẩu có độ dài từ #{Constant.min_matkhau} đến #{Constant.max_matkhau} ký tự" style="color:red"/>
-                                                                
+                                                                <b:link class="txtNote" header="* Tên tài khoản có độ dài từ #{Constant.min_tendangnhap} đến #{Constant.max_tendangnhap} ký tự." style="color:red"/>
+                                                                <b:link class="txtNote" header="* Mật khẩu có độ dài từ #{Constant.min_matkhau} đến #{Constant.max_matkhau} ký tự." style="color:red"/>
+                                                                <b:link class="txtNote" header="* Tên tài khoản không chứa các ký tự sau: " style="color:red"/>
+                                                                <b:link class="txtNote" header=" #{DanhMucBaiVietController.valiUtils.strSpecialChar}" style="color:red"/>
                                                             </b:listLinks>                                                            
                                                         </div>
                                                     </b:tab>

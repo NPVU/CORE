@@ -21,15 +21,17 @@ import org.slf4j.LoggerFactory;
 public class BaiVietDataProvider implements Serializable{
     private static final Logger log = LoggerFactory.getLogger(BaiVietDataProvider.class); 
     
-    public List<DanhMucBaiVietModel> getDanhSachDanhMucBaiViet(String tenDanhMucFilter, Boolean trangThaiFilter){
+    public List<DanhMucBaiVietModel> getDanhSachDanhMucBaiViet(String tenDanhMucFilter, int trangThaiFilter){
         Session session = HibernateUtil.currentSession();
         List<DanhMucBaiVietModel> dsDMBaiViet = new ArrayList();
         String where = "";
         if(tenDanhMucFilter != null){
             where += " AND danhmuc_baiviet_ten like '%"+tenDanhMucFilter+"%' ";
         }
-        if(trangThaiFilter != null){
-            where += " AND danhmuc_baiviet_trangthai = "+trangThaiFilter;
+        if(trangThaiFilter == 1){
+            where += " AND danhmuc_baiviet_trangthai = true";
+        }else if(trangThaiFilter == 0){
+            where += " AND danhmuc_baiviet_trangthai = false";
         }
         try {
             session.beginTransaction();
@@ -43,5 +45,39 @@ public class BaiVietDataProvider implements Serializable{
             session.close();
 	}
         return dsDMBaiViet;
+    }
+    
+    public boolean updateDanhMucBaiViet(DanhMucBaiVietModel objDanhMuc){
+        Session session = HibernateUtil.currentSession();
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(objDanhMuc);           
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            session.getTransaction().rollback();
+            log.error("Lỗi update danh mục bài viết <<" + objDanhMuc.getTen() + ">> {}", e);
+            return false;
+	} finally {
+            session.close();
+	}
+        return true;
+    }
+    
+    public boolean checkExistTenDanhMuc(String tenDanhMuc){
+        Session session = HibernateUtil.currentSession();
+        boolean result = true;
+        try {
+            session.beginTransaction();
+            result = (boolean) session.createSQLQuery("SELECT EXISTS("
+                    + "SELECT * FROM danhmuc_baiviet WHERE danhmuc_baiviet_ten = '"+tenDanhMuc+"')")
+                    .uniqueResult();
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            log.error("Lỗi Kiểm tra sự tồn tại danh mục <<" + tenDanhMuc + ">> {}", e);
+            return false;
+	} finally {
+            session.close();
+	}
+        return result;
     }
 }

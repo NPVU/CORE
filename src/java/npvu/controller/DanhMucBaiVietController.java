@@ -12,10 +12,13 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import npvu.constant.Constant;
+import npvu.constant.MessageConstant;
 import npvu.dataprovider.BaiVietDataProvider;
 import npvu.model.DanhMucBaiVietModel;
+import npvu.util.DateUtils;
 import npvu.util.RoleUtils;
 import npvu.util.ShowGrowlUtils;
+import npvu.util.ValidateUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,25 +45,27 @@ public class DanhMucBaiVietController implements Serializable{
     
     private final RoleUtils roleUtils               = new RoleUtils();
     
+    private final ValidateUtils valiUtils           = new ValidateUtils();
+    
     private int viewMode;                                             // 0 là form danh sách, 1 là form cập nhật
     
     private boolean editMode;
     
     private String tenDanhMucFilter;
     
-    private Boolean trangThaiFilter;
+    private int trangThaiFilter = -1;                                // -1 là tất cả, 1 là true, 0 là false
     
     public DanhMucBaiVietController() {
         if(roleUtils.checkRole(Constant.ROLE_ADMIN_BAIVIET)){
             actionGetDanhSachDanhMucBaiViet();
             viewMode = 0;
         }  else {
-            viewMode = Constant.CODE_ERROR_401;
+            viewMode = Constant.CODE_ERROR_500;
         }
     }
     
     private void actionGetDanhSachDanhMucBaiViet(){
-        dsDMBaiViet = bvProvider.getDanhSachDanhMucBaiViet(null, null);
+        dsDMBaiViet = bvProvider.getDanhSachDanhMucBaiViet(null, -1);
     }
 
     public void actionGetDanhSachDanhMucBaiVietFilter(){
@@ -71,6 +76,44 @@ public class DanhMucBaiVietController implements Serializable{
         objDMBaiViet = new DanhMucBaiVietModel();
         editMode = false;
         viewMode = 1;
+    }
+    
+    public void actionUpdateDanhMuc(){
+        if(actionVaildFormUpdateDanhMuc()){
+            objDMBaiViet.setNgayTao(DateUtils.getCurrentDate());
+            if(bvProvider.updateDanhMucBaiViet(objDMBaiViet)){
+                showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
+            } else {
+                showGrowl.showMessageFatal(MessageConstant.MESSAGE_FAIL_UPDATE);
+            }
+        } else {
+            return;
+        }
+        objDMBaiViet = new DanhMucBaiVietModel();
+        actionGetDanhSachDanhMucBaiViet();
+        editMode = false;
+        viewMode = 0;        
+    }
+    
+    public boolean actionVaildFormUpdateDanhMuc(){
+        boolean vaild = true;
+        
+        if(objDMBaiViet.getTen().length() < Constant.MIN_TENDANHMUC || 
+                objDMBaiViet.getTen().length() > Constant.MAX_TENDANHMUC){
+            showGrowl.showMessageError("Tên danh mục " + MessageConstant.MESSAGE_ERROR_STR_LENGTH, uicTenDanhMuc);
+            vaild = false;
+        }
+        
+        if(valiUtils.checkSpecialChar(objDMBaiViet.getTen())){
+            showGrowl.showMessageError("Tên danh mục " + MessageConstant.MESSAGE_ERROR_SPECIAL_CHAR, uicTenDanhMuc);            
+            return false;
+        }
+        
+        if(bvProvider.checkExistTenDanhMuc(objDMBaiViet.getTen())){
+            showGrowl.showMessageError("Tên danh mục " + MessageConstant.MESSAGE_ERROR_EXISTS, uicTenDanhMuc);
+            vaild = false;
+        }
+        return vaild;
     }
     
     public void actionChangeViewMode(int mode){
@@ -119,14 +162,6 @@ public class DanhMucBaiVietController implements Serializable{
         this.dsDMBaiViet = dsDMBaiViet;
     }
 
-    public Boolean getTrangThaiFilter() {
-        return trangThaiFilter;
-    }
-
-    public void setTrangThaiFilter(Boolean trangThaiFilter) {
-        this.trangThaiFilter = trangThaiFilter;
-    }
-
     public boolean isEditMode() {
         return editMode;
     }
@@ -141,6 +176,18 @@ public class DanhMucBaiVietController implements Serializable{
 
     public void setObjDMBaiViet(DanhMucBaiVietModel objDMBaiViet) {
         this.objDMBaiViet = objDMBaiViet;
+    }
+
+    public ValidateUtils getValiUtils() {
+        return valiUtils;
+    }
+
+    public int getTrangThaiFilter() {
+        return trangThaiFilter;
+    }
+
+    public void setTrangThaiFilter(int trangThaiFilter) {
+        this.trangThaiFilter = trangThaiFilter;
     }
     
     
