@@ -60,7 +60,7 @@ public class TaiKhoanDataProvider implements Serializable {
         return objTaiKhoanModel;
     }
     
-    public List<TaiKhoanModel> getDanhSachTaiKhoan(String tenDangNhapFilter, String tenHienThiFilter, String emailFilter){
+    public List<TaiKhoanModel> getDanhSachTaiKhoan(String tenDangNhapFilter, String tenHienThiFilter, String emailFilter, int trangThaiFilter){
         Session session = HibernateUtil.currentSession();
         List<TaiKhoanModel> dsTaiKhoan = new ArrayList();
         String where = "";
@@ -72,6 +72,11 @@ public class TaiKhoanDataProvider implements Serializable {
         }
         if(emailFilter != null){
             where += " AND taikhoan_email like '%"+emailFilter+"%' ";
+        }
+        if(trangThaiFilter == 1){
+            where += " AND taikhoan_hoatdong = true ";
+        } else if(trangThaiFilter == 0){
+            where += " AND taikhoan_hoatdong = false ";
         }
         try {
             session.beginTransaction();

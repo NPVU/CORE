@@ -78,6 +78,8 @@ public class TaiKhoanController implements Serializable{
     
     private String emailFilter;
     
+    private int    trangThaiFilter = -1;                              // -1 là tất cả, 1 là true, 0 là false
+    
     /**
      * Creates a new instance of TaiKhoanController
      */
@@ -180,13 +182,13 @@ public class TaiKhoanController implements Serializable{
     private void actionGetDanhSachTaiKhoan(){
         log.info("***** Lấy danh sách tài khoản <actionGetDanhSachTaiKhoan> *****");
         dsTaiKhoan.clear();
-        dsTaiKhoan = tkProvider.getDanhSachTaiKhoan(null, null, null);
+        dsTaiKhoan = tkProvider.getDanhSachTaiKhoan(null, null, null, -1);
     }
     
     public void actionGetDanhSachTaiKhoanFilter(){
         log.info("***** Lấy danh sách tài khoản <actionGetDanhSachTaiKhoanFilter> *****" +tenDangNhapFilter);
         dsTaiKhoan.clear();
-        dsTaiKhoan = tkProvider.getDanhSachTaiKhoan(tenDangNhapFilter, tenHienThiFilter, emailFilter);
+        dsTaiKhoan = tkProvider.getDanhSachTaiKhoan(tenDangNhapFilter, tenHienThiFilter, emailFilter, trangThaiFilter);
     }
     
     public void actionGetDanhSachTaiKhoanByRole(){
@@ -207,10 +209,14 @@ public class TaiKhoanController implements Serializable{
         }
         objTaiKhoan.setHoatdong(!objTaiKhoan.isHoatdong());        
         tkProvider.updateTaiKhoan(objTaiKhoan, false, null);
+        if(objTaiKhoan.isHoatdong()){
+            showGrowl.showMessageSuccess("Đã mở khóa tài khoản: "+objTaiKhoan.getTenDangNhap());
+        } else {
+            showGrowl.showMessageFatal("Đã khóa tài khoản: "+objTaiKhoan.getTenDangNhap());
+        }
     }
     
-    public void actionDelTaiKhoan(TaiKhoanModel objTaiKhoan){
-        
+    public void actionDelTaiKhoan(TaiKhoanModel objTaiKhoan){        
         tkProvider.updateTaiKhoan(objTaiKhoan, false, null);
     }
     
@@ -354,6 +360,14 @@ public class TaiKhoanController implements Serializable{
 
     public void setUiUploadFile(UI_UploadFileController uiUploadFile) {
         this.uiUploadFile = uiUploadFile;
+    }
+
+    public int getTrangThaiFilter() {
+        return trangThaiFilter;
+    }
+
+    public void setTrangThaiFilter(int trangThaiFilter) {
+        this.trangThaiFilter = trangThaiFilter;
     }
     
 }
