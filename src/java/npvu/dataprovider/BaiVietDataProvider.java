@@ -9,10 +9,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import npvu.model.BaiVietModel;
 import npvu.model.DanhMucBaiVietModel;
 import npvu.util.HibernateUtil;
 import org.hibernate.Session;
+import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -84,21 +86,34 @@ public class BaiVietDataProvider implements Serializable{
     }
     
     
-    public List<BaiVietModel> getDanhSachBaiViet(String dmIDFilter, String tieuDeFilter,
-            Date taoTuNgayFilter, Date taoDenNgayFilter){
+    public List<Map> getDanhSachBaiViet(int dmIDFilter, String tieuDeFilter, 
+            int xuatBanFilter, Date taoTuNgayFilter, Date taoDenNgayFilter){
         Session session = HibernateUtil.currentSession();
-        List<BaiVietModel> dsBaiViet = new ArrayList();
+        List<Map> dsBaiViet = new ArrayList();
         String where = "";
-        
+        if(dmIDFilter != 0){
+            where += " AND bv.danhmuc_baiviet_id = "+dmIDFilter;
+        }
+        if(tieuDeFilter != null && !tieuDeFilter.isEmpty()){
+            where += " AND bv.baiviet_tieude like '%"+tieuDeFilter+"%'";
+        }
+        if(xuatBanFilter == 1){
+            where += " AND bv.baiviet_xuatban = true";
+        } else if(xuatBanFilter == 0){
+            where += " AND bv.baiviet_xuatban = false";
+        }
         try {
             session.beginTransaction();
-            dsBaiViet = session.createSQLQuery("SELECT *"
+            dsBaiViet = session.createSQLQuery("SELECT bv.*, dmbv.danhmuc_baiviet_ten,"
+                    + " tk.taikhoan_tenhienthi "
                     + " FROM baiviet bv "
                     + " LEFT JOIN taikhoan tk "
                     + " ON tk.taikhoan_id = bv.taikhoan_id "
                     + " LEFT JOIN danhmuc_baiviet dmbv "
                     + " ON dmbv.danhmuc_baiviet_id = bv.danhmuc_baiviet_id "                   
-                    + " WHERE 1 = 1 " + where).addEntity(BaiVietModel.class).list();
+                    + " WHERE 1 = 1 " + where)
+                    .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
+                    .list();
             session.getTransaction().commit();
 	} catch (Exception e) {
             log.error("Lỗi get danh sách bài viết {}", e);

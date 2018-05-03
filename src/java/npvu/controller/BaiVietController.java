@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -48,7 +49,7 @@ public class BaiVietController implements Serializable{
     
     private final ValidateUtils valiUtils           = new ValidateUtils();
     
-    private List<BaiVietModel> dsBaiViet            = new ArrayList();
+    private List<Map> dsBaiViet                     = new ArrayList();
     
     private BaiVietModel objBaiViet;
     
@@ -56,9 +57,13 @@ public class BaiVietController implements Serializable{
     
     private boolean editMode;
     
+    private int tabIndex                            = 0;
+    
     private int dmIDFilter;
     
     private String tieuDeFilter;
+    
+    private int xuatBanFilter                       = -1;
     
     private Date taoTuNgayFilter;
     
@@ -78,10 +83,13 @@ public class BaiVietController implements Serializable{
     }
     
     private void actionGetDanhSachBaiViet(){
-        dsBaiViet = bvProvider.getDanhSachBaiViet(null, null, null, null);
+        dsBaiViet = bvProvider.getDanhSachBaiViet(0, null, -1, null, null);
     }
     
-    
+    public void actionGetDanhSachBaiVietFilter(){
+        dsBaiViet = bvProvider.getDanhSachBaiViet(dmIDFilter, tieuDeFilter, xuatBanFilter,
+                taoTuNgayFilter, taoDenNgayFilter);
+    }
     
     public void preActionThemBaiViet(){
         objBaiViet = new BaiVietModel();
@@ -100,7 +108,7 @@ public class BaiVietController implements Serializable{
                 objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
             }
         }
-        
+        objBaiViet.setTacGia(Login.tenHienThi);
         long tapTinID = 0;
         if(Session.statusUpload != null && Session.statusUpload == true){
                 tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
@@ -115,6 +123,10 @@ public class BaiVietController implements Serializable{
         actionGetDanhSachBaiViet();
         editMode = false;
         viewMode = 0;        
+    }
+    
+    public void actionChangeViewMode(int viewMode){
+        this.viewMode = viewMode;
     }
 
     public int getViewMode() {
@@ -131,14 +143,6 @@ public class BaiVietController implements Serializable{
 
     public void setEditMode(boolean editMode) {
         this.editMode = editMode;
-    }
-
-    public List<BaiVietModel> getDsBaiViet() {
-        return dsBaiViet;
-    }
-
-    public void setDsBaiViet(List<BaiVietModel> dsBaiViet) {
-        this.dsBaiViet = dsBaiViet;
     }
 
     public int getDmIDFilter() {
@@ -211,6 +215,30 @@ public class BaiVietController implements Serializable{
 
     public void setUiUploadFile(UI_UploadFileController uiUploadFile) {
         this.uiUploadFile = uiUploadFile;
+    }
+
+    public List<Map> getDsBaiViet() {
+        return dsBaiViet;
+    }
+
+    public void setDsBaiViet(List<Map> dsBaiViet) {
+        this.dsBaiViet = dsBaiViet;
+    }
+
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    public void setTabIndex(int tabIndex) {
+        this.tabIndex = tabIndex;
+    }
+
+    public int getXuatBanFilter() {
+        return xuatBanFilter;
+    }
+
+    public void setXuatBanFilter(int xuatBanFilter) {
+        this.xuatBanFilter = xuatBanFilter;
     }
     
 }

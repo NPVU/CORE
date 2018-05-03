@@ -70,6 +70,9 @@ a:hover {
         width: 100% !important;
     }
 }
+.skin-blue .main-header .navbar .nav>li>a {
+    height: 50px !important;
+}
 /*
     Customize Bootfaces Css
 */
@@ -120,8 +123,8 @@ button .btn-edit,button .btn-lock,button .btn-unlock,button .btn-delete {
 }
 
 .alert-info {
-    background-color: yellowgreen !important; 
-    border-color: yellowgreen !important;
+    background-color: #00a65a !important; 
+    border-color: #00a65a !important;
 }
 
 /* CSS FOR TEXT COLOR */

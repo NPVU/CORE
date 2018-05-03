@@ -7,7 +7,8 @@
                     xmlns:h="http://xmlns.jcp.org/jsf/html"
                     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
                     xmlns:b="http://bootsfaces.net/ui"
-                    xmlns:f="http://xmlns.jcp.org/jsf/core">
+                    xmlns:f="http://xmlns.jcp.org/jsf/core"
+                    xmlns:ck="http://code.google.com/ck-jsf-editor">
 
         <ui:define name="title">
             QUẢN LÝ BÀI VIẾT
@@ -37,20 +38,31 @@
                                         </div>                                        
                                         <div class="box-body">
                                             <div class="row">
-                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <b:inputText label="Danh mục" labelStyle="width:100px;"
-                                                                 placeholder="Nhập tên danh mục cần tìm..."/>                                                     
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                    <b:selectOneMenu label="Danh mục" value="#{BaiVietController.dmIDFilter}">
+                                                        <f:selectItem itemValue="0" itemLabel="Tất cả" />
+                                                        <f:selectItems value="#{DanhMucBaiVietController.dsDMBaiViet}" var="item"
+                                                                       itemValue="#{item.id}" itemLabel="#{item.ten}"/>
+                                                    </b:selectOneMenu>                                                    
                                                 </div>
-                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <b:inputText label="Tên bài viết" labelStyle="width:100px;"
-                                                                 placeholder="Nhập tên bài viết cần tìm..."/>
-                                                                                                     
-                                                </div>                                                                                                    
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                    <b:inputText label="Tiêu đề" labelStyle="width:100px;"
+                                                                 value="#{BaiVietController.tieuDeFilter}"
+                                                                 placeholder="Nhập tiêu đề bài viết cần tìm..."/>                                                                                                     
+                                                </div> 
+                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                                    <b:selectOneMenu label="Trạng thái" value="#{BaiVietController.xuatBanFilter}">
+                                                        <f:selectItem itemValue="-1" itemLabel="Tất cả" />
+                                                        <f:selectItem itemValue="1" itemLabel="Đã xuất bản" />
+                                                        <f:selectItem itemValue="0" itemLabel="Chưa xuất bản" />
+                                                    </b:selectOneMenu>                                                                                                     
+                                                </div>
                                             </div>
                                             <div class="row margin-t-5">
                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                                                    <b:commandButton value="Tìm" icon-awesome="fa-search" 
-                                                        update="@form" process="@form"/>
+                                                    <b:commandButton value="Tìm" icon-awesome="fa-search"
+                                                                     actionListener="#{BaiVietController.actionGetDanhSachBaiVietFilter()}"
+                                                                     update="@form" process="@form"/>
                                                 </div>
                                             </div>
                                             <div class="row margin-t-5" style="text-align:right">
@@ -69,30 +81,30 @@
                                                                  var="item">                                                        
                                                         <b:dataTableColumn headerStyleClass="text-center" >
                                                             <f:facet name="header">Tiêu đề</f:facet>
-                                                            #{item.tieuDe}
+                                                            #{item.baiviet_tieude}
                                                         </b:dataTableColumn>
                                                         <b:dataTableColumn headerStyleClass="text-center" >
                                                             <f:facet name="header">Danh mục</f:facet>
-                                                            #{item.tenDanhMuc}
+                                                            #{item.danhmuc_baiviet_ten}
                                                         </b:dataTableColumn>
                                                          <b:dataTableColumn headerStyleClass="text-center" >
                                                             <f:facet name="header">Tác giả</f:facet>
-                                                            #{item.tacGia}
+                                                            #{item.baiviet_tacgia}
                                                         </b:dataTableColumn>
                                                         <b:dataTableColumn styleClass="text-center" >
                                                             <f:facet name="header">Trạng thái</f:facet>
-                                                            <h:outputText value="Đã xuất bản" rendered="#{item.xuatBan}" />
-                                                            <h:outputText value="Chưa xuất bản" rendered="#{!item.xuatBan}" />
+                                                            <h:outputText value="Đã xuất bản" rendered="#{item.baiviet_xuatban}" />
+                                                            <h:outputText value="Chưa xuất bản" rendered="#{!item.baiviet_xuatban}" />
                                                         </b:dataTableColumn>
-                                                        <b:dataTableColumn styleClass="text-center" >
+<!--                                                        <b:dataTableColumn styleClass="text-center" >
                                                             <f:facet name="header">Ngày xuất bản</f:facet>
-                                                            <h:outputText value="#{item.ngayXuatBan}">
+                                                            <h:outputText value="#{item.baiviet_ngayxuatban}">
                                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                             </h:outputText>
-                                                        </b:dataTableColumn>
+                                                        </b:dataTableColumn>-->
                                                         <b:dataTableColumn styleClass="text-center" >
                                                             <f:facet name="header">Ngày tạo</f:facet>
-                                                            <h:outputText value="#{item.ngayTao}">
+                                                            <h:outputText value="#{item.baiviet_ngaytao}">
                                                                 <f:convertDateTime pattern="dd/MM/yyyy"/>
                                                             </h:outputText>
                                                         </b:dataTableColumn>                                                       
@@ -140,57 +152,62 @@
                                             <h3 class="box-title">#{BaiVietController.editMode? 'Chỉnh sửa bài viết':'Thêm bài viết'}</h3>
                                         </div>
                                         <div class="box-body">
-                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                                                
-                                                <div class="col-md-1 col-lg-1"></div>
-                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
-                                                    <h:outputLabel value="Tiêu đề bài viết" />
-                                                    <b:inputText  id="txtTieuDe"
-                                                                  value="#{BaiVietController.objBaiViet.tieuDe}"
-                                                                  binding="#{BaiVietController.uicTieuDe}"
-                                                                  required="true"
-                                                                  requiredMessage="Vui lòng nhập tiêu đề !"
-                                                                  a:placeholder="Nhập tiêu đề ...">
-                                                        <f:facet name="prepend">
-                                                            <b:iconAwesome name="fa-user" />
-                                                        </f:facet>
-                                                    </b:inputText>
-                                                    <b:message for="txtTieuDe" />
-                                                    
-                                                    <b:selectOneMenu id="selectDanhMuc" label="Danh mục" 
-                                                                     value="#{BaiVietController.objBaiViet.danhmuc_baiviet_id}">
-                                                        <f:selectItems value="#{DanhMucBaiVietController.dsDMBaiViet}"
-                                                                       var="item"
-                                                                       itemLabel="#{item.ten}"
-                                                                       itemValue="#{item.id}"/>
-                                                        <f:facet name="prepend">
-                                                            <b:iconAwesome name="fa-list" />
-                                                        </f:facet>
-                                                    </b:selectOneMenu>
-                                                    <b:message for="selectDanhMuc" />
-                                                    
-                                                    <h:outputLabel value="Trạng thái" />
-                                                    <b:selectBooleanCheckbox value="#{BaiVietController.objBaiViet.xuatBan}"
-                                                                             caption="Xuất bản"/>
-                                                                                                       
-                                                    <b:button icon-awesome="fa-user"
-                                                                          onclick="$('.modalAnhLogo').modal();"                                                                           
-                                                                          class="text-info margin-2 btn-lock"
-                                                                          tooltip="Cập nhật ảnh logo"
-                                                                          value="Cập nhật ảnh logo">                                                                           
-                                                    </b:button>
-                                                </div>
-                                                <div class="col-md-1 col-lg-1"></div>
-                                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 margin-t-15">                                                            
-                                                    <b:listLinks>
-                                                        <b:link class="txtNote" header="* Tên danh mục có độ dài từ #{Constant.min_tendanhmuc} đến #{Constant.max_tendanhmuc} ký tự." style="color:red"/>
-                                                        <b:link class="txtNote" header="* Tên danh mục không chứa các ký tự sau: " style="color:red"/>
-                                                        <b:link class="txtNote" header=" #{DanhMucBaiVietController.valiUtils.strSpecialChar}" style="color:red"/>
-                                                    </b:listLinks>                                                            
-                                                </div>
-
-                                            </div>
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                                <div class="col-md-1 col-lg-1"></div>
+                                                <b:tabView id="tabTaoTaiKhoan" activeIndex="#{BaiVietController.tabIndex}">                                                    
+                                                    <b:tab title="Thông tin bài viết" style="width:250px;">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
+                                                            <h:outputLabel value="Tiêu đề bài viết" />
+                                                            <b:inputText  id="txtTieuDe"
+                                                                          value="#{BaiVietController.objBaiViet.tieuDe}"
+                                                                          binding="#{BaiVietController.uicTieuDe}"
+                                                                          required="true"
+                                                                          requiredMessage="Vui lòng nhập tiêu đề !"
+                                                                          a:placeholder="Nhập tiêu đề ...">
+                                                                <f:facet name="prepend">
+                                                                    <b:iconAwesome name="fa-user" />
+                                                                </f:facet>
+                                                            </b:inputText>
+                                                            <b:message for="txtTieuDe" />
+
+                                                            <b:selectOneMenu id="selectDanhMuc" label="Danh mục" 
+                                                                             value="#{BaiVietController.objBaiViet.danhmuc_baiviet_id}">
+                                                                <f:selectItems value="#{DanhMucBaiVietController.dsDMBaiViet}"
+                                                                               var="item"
+                                                                               itemLabel="#{item.ten}"
+                                                                               itemValue="#{item.id}"/>
+                                                                <f:facet name="prepend">
+                                                                    <b:iconAwesome name="fa-list" />
+                                                                </f:facet>
+                                                            </b:selectOneMenu>
+                                                            <b:message for="selectDanhMuc" />
+
+                                                            <h:outputLabel value="Trạng thái" />
+                                                            <b:selectBooleanCheckbox value="#{BaiVietController.objBaiViet.xuatBan}"
+                                                                                     caption="Xuất bản"/>
+
+                                                            <b:button icon-awesome="fa-user"
+                                                                      onclick="$('.modalAnhLogo').modal();"                                                                           
+                                                                      class="text-info margin-2 btn-lock"
+                                                                      tooltip="Cập nhật ảnh logo"
+                                                                      value="Cập nhật ảnh logo">                                                                           
+                                                            </b:button>
+                                                        </div>                                                
+                                                    </b:tab>
+                                                    <b:tab title="Nội dung bài viết" style="width:250px;">
+                                                        <div class="col-xs-12 col-sm-12 col-md-2 col-lg-12 margin-t-5">                                                                                                                   
+                                                            <ck:editor id="editorNoiDung" uiColor="aed0ea"
+                                                                       width="100%"
+                                                                       height="400px"
+                                                                       required="false"
+                                                                       requiredMessage="Vui lòng nhập nội dung bài viết !"/>
+                                                            <h:message for="editorNoiDung" />                                                            
+                                                        </div>
+                                                    </b:tab>
+                                                </b:tabView>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-t-15">
+                                                <div class="col-md-3 col-lg-3"></div>
                                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
                                                     <b:commandButton styleClass="btn btn-danger margin-2"
                                                                      value="Cập nhật"
@@ -218,7 +235,7 @@
                             </b:modal> 
                         </b:form>
                         <h:form style="display:none;">
-                            <h:commandButton styleClass="btnTroVe" actionListener="#{DanhMucBaiVietController.actionChangeViewMode(0)}"/>                            
+                            <h:commandButton styleClass="btnTroVe" actionListener="#{BaiVietController.actionChangeViewMode(0)}"/>                            
                         </h:form>
                         <h:form rendered="#{BaiVietController.viewMode == 500}">
                             <ui:include src="../../error/500.xhtml"></ui:include>

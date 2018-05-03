@@ -488,8 +488,8 @@ a:focus {
 }
 .user-panel > .image > img {
   width: 100%;
-  width: 45px;
-  height: 45px;
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
 .user-panel > .info {
@@ -5161,7 +5161,7 @@ table.text-center th {
 .alert-info,
 .label-info,
 .modal-info .modal-body {
-  background-color: #00c0ef !important;
+  background-color: #00a65a !important;
 }
 .bg-blue {
   background-color: #0073b7 !important;
