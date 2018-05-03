@@ -10,10 +10,16 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import npvu.constant.Constant;
+import npvu.constant.FileConstant;
+import npvu.constant.MessageConstant;
 import npvu.dataprovider.BaiVietDataProvider;
 import npvu.model.BaiVietModel;
+import npvu.session.Session;
+import npvu.util.DateUtils;
 import npvu.util.RoleUtils;
 import npvu.util.ShowGrowlUtils;
 import npvu.util.ValidateUtils;
@@ -29,6 +35,11 @@ import org.slf4j.LoggerFactory;
 public class BaiVietController implements Serializable{
     private static final Logger log = LoggerFactory.getLogger(BaiVietController.class);
     
+    @ManagedProperty(value="#{UI_UploadFileController}")
+    private UI_UploadFileController uiUploadFile;
+    
+    private UIComponent uicTieuDe;
+    
     private final BaiVietDataProvider bvProvider    = new BaiVietDataProvider();
     
     private final ShowGrowlUtils showGrowl          = new ShowGrowlUtils();
@@ -38,6 +49,8 @@ public class BaiVietController implements Serializable{
     private final ValidateUtils valiUtils           = new ValidateUtils();
     
     private List<BaiVietModel> dsBaiViet            = new ArrayList();
+    
+    private BaiVietModel objBaiViet;
     
     private int viewMode;                                             // 0 là form danh sách, 1 là form cập nhật
     
@@ -68,6 +81,41 @@ public class BaiVietController implements Serializable{
         dsBaiViet = bvProvider.getDanhSachBaiViet(null, null, null, null);
     }
     
+    
+    
+    public void preActionThemBaiViet(){
+        objBaiViet = new BaiVietModel();
+        viewMode = 1;
+        editMode = false;
+    }
+    
+    public void actionUpdateBaiViet(){
+        if(!editMode){ // Thêm mới
+            objBaiViet.setNgayTao(DateUtils.getCurrentDate());
+            if(objBaiViet.isXuatBan()){
+                objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
+            }
+        } else { // Chỉnh sửa
+            if(objBaiViet.isXuatBan() && objBaiViet.getNgayXuatBan() == null){
+                objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
+            }
+        }
+        
+        long tapTinID = 0;
+        if(Session.statusUpload != null && Session.statusUpload == true){
+                tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
+                objBaiViet.setTapTinID(tapTinID);
+        }
+        if(bvProvider.updateBaiViet(objBaiViet)){
+            showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
+        } else{
+            showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
+        }
+        UI_UploadFileController.resetValueFileToSession();
+        actionGetDanhSachBaiViet();
+        editMode = false;
+        viewMode = 0;        
+    }
 
     public int getViewMode() {
         return viewMode;
@@ -139,6 +187,30 @@ public class BaiVietController implements Serializable{
 
     public void setXuatBanDenNgayFilter(Date xuatBanDenNgayFilter) {
         this.xuatBanDenNgayFilter = xuatBanDenNgayFilter;
+    }
+
+    public BaiVietModel getObjBaiViet() {
+        return objBaiViet;
+    }
+
+    public void setObjBaiViet(BaiVietModel objBaiViet) {
+        this.objBaiViet = objBaiViet;
+    }
+
+    public UIComponent getUicTieuDe() {
+        return uicTieuDe;
+    }
+
+    public void setUicTieuDe(UIComponent uicTieuDe) {
+        this.uicTieuDe = uicTieuDe;
+    }
+
+    public UI_UploadFileController getUiUploadFile() {
+        return uiUploadFile;
+    }
+
+    public void setUiUploadFile(UI_UploadFileController uiUploadFile) {
+        this.uiUploadFile = uiUploadFile;
     }
     
 }

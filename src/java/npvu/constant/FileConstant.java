@@ -16,6 +16,7 @@ public class FileConstant {
     
     public static final String PATH_UPLOAD_TEMP         = "/data/upload/temp/";
     public static final String PATH_UPLOAD_AVATAR       = "/data/upload/avatar/";
+    public static final String PATH_UPLOAD_IMAGE       = "/data/upload/images/";
     public static final String[] ALLOW_EXTENSION        = {".doc",".docx",".xls",".xlsx",".pdf",".png",".jpg"};
     public static final String[] ALLOW_EXTENSION_IMAGE  = {".png",".jpg",".git",".ico",".icon"};
     

@@ -27,20 +27,17 @@ public class BaiVietModel implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "baiviet_baiviet_id_seq")
-    @SequenceGenerator(name = "baiviet_baiviet_id_seq", sequenceName = "dbaiviet_baiviet_id_seq", allocationSize = 1)
+    @SequenceGenerator(name = "baiviet_baiviet_id_seq", sequenceName = "baiviet_baiviet_id_seq", allocationSize = 1)
     @Column(name = "baiviet_id", unique = true, nullable = false)
     private int id;
     
     @Column(name = "baiviet_tieude")
-    private String tieuDe;
-    
-    @Column(name = "baiviet_icon_url")
-    private String iconUrl;
+    private String tieuDe;        
     
     @Column(name = "baiviet_noidung")
     private String noiDung;
     
-    @Column(name = "baiviet_nguoitao")
+    @Column(name = "baiviet_tacgia")
     private String tacGia;
     
     @Column(name = "baiviet_ngaytao")
@@ -59,6 +56,9 @@ public class BaiVietModel implements Serializable {
     
     @Column(name = "taikhoan_id")
     private long taiKhoanID;
+    
+    @Column(name = "taptin_id")
+    private long tapTinID;
 
     @Transient
     private String tenDanhMuc;
@@ -79,15 +79,7 @@ public class BaiVietModel implements Serializable {
 
     public void setTieuDe(String tieuDe) {
         this.tieuDe = tieuDe;
-    }
-
-    public String getIconUrl() {
-        return iconUrl;
-    }
-
-    public void setIconUrl(String iconUrl) {
-        this.iconUrl = iconUrl;
-    }
+    }   
 
     public String getNoiDung() {
         return noiDung;
@@ -151,6 +143,14 @@ public class BaiVietModel implements Serializable {
 
     public void setXuatBan(boolean xuatBan) {
         this.xuatBan = xuatBan;
+    }
+
+    public long getTapTinID() {
+        return tapTinID;
+    }
+
+    public void setTapTinID(long tapTinID) {
+        this.tapTinID = tapTinID;
     }
 
 }

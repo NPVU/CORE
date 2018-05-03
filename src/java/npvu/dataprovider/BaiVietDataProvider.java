@@ -107,4 +107,20 @@ public class BaiVietDataProvider implements Serializable{
 	}
         return dsBaiViet;
     }
+    
+    public boolean updateBaiViet(BaiVietModel objBaiViet){
+        Session session = HibernateUtil.currentSession();
+        try {
+            session.beginTransaction();
+            session.saveOrUpdate(objBaiViet);           
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            session.getTransaction().rollback();
+            log.error("Lỗi update bài viết <<" + objBaiViet.getTieuDe() + ">> {}", e);
+            return false;
+	} finally {
+            session.close();
+	}
+        return true;
+    }
 }

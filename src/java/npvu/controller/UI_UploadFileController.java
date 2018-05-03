@@ -67,10 +67,46 @@ public class UI_UploadFileController implements Serializable{
         File f2 = new File(ClassCommon.getPathResources()+FileConstant.PATH_UPLOAD_AVATAR);
         if(!f2.exists()){
             f2.mkdirs();
-        }                
+        }
+        
+        File f3 = new File(ClassCommon.getPathResources()+FileConstant.PATH_UPLOAD_IMAGE);
+        if(!f3.exists()){
+            f3.mkdirs();
+        }
     }
 
     public void actionUploadAvatar( ) throws IOException{
+        String pathUpload = ClassCommon.getPathResources()+FileConstant.PATH_UPLOAD_TEMP;        
+        long ranNumber = DateUtils.getCurrentDate().getTime();
+        fileRealName   = getFileName(file);
+        fileName       = ranNumber + FileConstant.DAUCACH_TENFILE + getFileName(file);
+        pathFile       = pathUpload + fileName; 
+        if(FileUtils.checkExtension(FileUtils.getExtension(fileRealName), FileConstant.ALLOW_EXTENSION_IMAGE)){
+            InputStream inputStream = file.getInputStream();        
+            FileOutputStream outputStream = new FileOutputStream(pathFile);
+            byte[] buffer = new byte[4096];        
+            int bytesRead = 0;
+            while(true) {                        
+                bytesRead = inputStream.read(buffer);
+                if(bytesRead > 0) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }else {
+                    break;
+                }                       
+            }
+            outputStream.close();
+            inputStream.close();
+            statusUpload = true;
+            Session.statusUpload = true;
+            setValueFileToSession();            
+        } else {   
+            statusUpload = false;
+            Session.statusUpload = false;       
+            showGrowl.showMessageError(MessageConstant.MESSAGE_ERROR_EXTENSION_AVATAR, uicFile);
+        }
+    }
+    
+    public void actionUploadImage( ) throws IOException{
         String pathUpload = ClassCommon.getPathResources()+FileConstant.PATH_UPLOAD_TEMP;        
         long ranNumber = DateUtils.getCurrentDate().getTime();
         fileRealName   = getFileName(file);

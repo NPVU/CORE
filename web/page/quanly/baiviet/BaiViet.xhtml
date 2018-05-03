@@ -55,7 +55,7 @@
                                             </div>
                                             <div class="row margin-t-5" style="text-align:right">
                                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12s">
-                                                    <h:commandButton actionListener="#{DanhMucBaiVietController.preActionThemDanhMuc()}"
+                                                    <h:commandButton actionListener="#{BaiVietController.preActionThemBaiViet()}"
                                                         value="Thêm bài viết" styleClass="btn btn-danger" />
                                                 </div>
                                             </div>
@@ -132,34 +132,52 @@
                         </b:form>
 
 
-                        <b:form id="formThemDanhMucBaiViet" rendered="#{BaiVietController.viewMode == 1}">
+                        <b:form id="formThemBaiViet" rendered="#{BaiVietController.viewMode == 1}">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                     <div class="box box-info">
                                         <div class="box-header with-border">
-                                            <h3 class="box-title">#{BaiVietController.editMode? 'Chỉnh sửa danh mục bài viết':'Thêm danh mục bài viết'}</h3>
+                                            <h3 class="box-title">#{BaiVietController.editMode? 'Chỉnh sửa bài viết':'Thêm bài viết'}</h3>
                                         </div>
                                         <div class="box-body">
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                                                
                                                 <div class="col-md-1 col-lg-1"></div>
                                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
-                                                    <h:outputLabel value="Tên danh mục" />
-                                                    <b:inputText  id="txtTenDanhMuc"
-                                                                  value="#{DanhMucBaiVietController.objDMBaiViet.ten}"
-                                                                  binding="#{DanhMucBaiVietController.uicTenDanhMuc}"
+                                                    <h:outputLabel value="Tiêu đề bài viết" />
+                                                    <b:inputText  id="txtTieuDe"
+                                                                  value="#{BaiVietController.objBaiViet.tieuDe}"
+                                                                  binding="#{BaiVietController.uicTieuDe}"
                                                                   required="true"
-                                                                  requiredMessage="Vui lòng nhập tên danh mục !"
-                                                                  a:placeholder="Nhập tên danh mục ...">
+                                                                  requiredMessage="Vui lòng nhập tiêu đề !"
+                                                                  a:placeholder="Nhập tiêu đề ...">
                                                         <f:facet name="prepend">
                                                             <b:iconAwesome name="fa-user" />
                                                         </f:facet>
                                                     </b:inputText>
-                                                    <b:message for="txtTenDanhMuc" />
+                                                    <b:message for="txtTieuDe" />
+                                                    
+                                                    <b:selectOneMenu id="selectDanhMuc" label="Danh mục" 
+                                                                     value="#{BaiVietController.objBaiViet.danhmuc_baiviet_id}">
+                                                        <f:selectItems value="#{DanhMucBaiVietController.dsDMBaiViet}"
+                                                                       var="item"
+                                                                       itemLabel="#{item.ten}"
+                                                                       itemValue="#{item.id}"/>
+                                                        <f:facet name="prepend">
+                                                            <b:iconAwesome name="fa-list" />
+                                                        </f:facet>
+                                                    </b:selectOneMenu>
+                                                    <b:message for="selectDanhMuc" />
                                                     
                                                     <h:outputLabel value="Trạng thái" />
-                                                    <b:selectBooleanCheckbox value="#{DanhMucBaiVietController.objDMBaiViet.trangThai}"
-                                                                             caption="Kích hoạt"/>
-                                                    
+                                                    <b:selectBooleanCheckbox value="#{BaiVietController.objBaiViet.xuatBan}"
+                                                                             caption="Xuất bản"/>
+                                                                                                       
+                                                    <b:button icon-awesome="fa-user"
+                                                                          onclick="$('.modalAnhLogo').modal();"                                                                           
+                                                                          class="text-info margin-2 btn-lock"
+                                                                          tooltip="Cập nhật ảnh logo"
+                                                                          value="Cập nhật ảnh logo">                                                                           
+                                                    </b:button>
                                                 </div>
                                                 <div class="col-md-1 col-lg-1"></div>
                                                 <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 margin-t-15">                                                            
@@ -177,7 +195,7 @@
                                                     <b:commandButton styleClass="btn btn-danger margin-2"
                                                                      value="Cập nhật"
                                                                      icon-awesome="fa-save"                                                                     
-                                                                     actionListener="#{DanhMucBaiVietController.actionUpdateDanhMuc()}">                                                                                                                             
+                                                                     actionListener="#{BaiVietController.actionUpdateBaiViet()}">                                                                                                                             
                                                     </b:commandButton>
                                                     <b:button class="btn-back margin-2"
                                                               value="Trở về"
@@ -189,6 +207,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <b:modal id="modalAnhLogo" 
+                                     styleClass="modalAnhLogo IframeUpload"
+                                     title="Cập nhật ảnh">                                                               
+                                <iframe src="#{request.contextPath}/faces/page/UI_UploadFileImage.xhtml"
+                                        frameborder="0" width="100%" height="300px" scrolling="yes"/>
+                                <f:facet name="footer">
+                                    <b:button icon-awesome="fa-close" value="Close" dismiss="modal" />
+                                </f:facet>
+                            </b:modal> 
                         </b:form>
                         <h:form style="display:none;">
                             <h:commandButton styleClass="btnTroVe" actionListener="#{DanhMucBaiVietController.actionChangeViewMode(0)}"/>                            

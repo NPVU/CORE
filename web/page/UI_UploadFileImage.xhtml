@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <h:head>  
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet name="css/bootstrap/bootstrap.min.css" library="resources"/>
+        <h:outputStylesheet name="css/main.css" library="resources"/>
+    </h:head>
+    <body>
+        <h:form enctype="multipart/form-data">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+                <h:inputFile id="fileUpload" binding="#{UI_UploadFileController.uicFile}"
+                             styleClass="form-control"
+                             value="#{UI_UploadFileController.file}"
+                             a:placeholder="Chọn hình ảnh"
+                             required="true" requiredMessage="Vui lòng chọn ảnh"/>
+                <b:message for="fileUpload" />
+            </div>
+            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                <b:commandButton value="#{UI_UploadFileController.statusUpload? 'Tải lên lại':'Tải lên'}"
+                                 styleClass="btn btn-danger"
+                                 actionListener="#{UI_UploadFileController.actionUploadImage()}"
+                                 update="@form">
+                </b:commandButton>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <h:graphicImage library="resources" name="#{FileConstant.path_upload_temp}#{UI_UploadFileController.fileName}"
+                                rendered="#{UI_UploadFileController.statusUpload}"
+                                styleClass="margin-t-5"
+                                width="400px" height="400px"/>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-t-5 text-center">
+                <b:button rendered="#{UI_UploadFileController.statusUpload}"
+                          class="btn btn-primary margin-2" value="Chọn ảnh này"
+                          onclick="parent.closeModal('IframeUpload');"/>
+                                              
+            </div>
+        </h:form>
+    </body>
+</html>
