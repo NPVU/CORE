@@ -5,19 +5,140 @@
  */
 package npvu.controller;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import npvu.constant.Constant;
+import npvu.dataprovider.BaiVietDataProvider;
+import npvu.model.BaiVietModel;
+import npvu.util.RoleUtils;
+import npvu.util.ShowGrowlUtils;
+import npvu.util.ValidateUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  *
  * @author npvu
  */
-@ManagedBean
+@ManagedBean (name = "BaiVietController")
 @ViewScoped
-public class BaiVietController {
+public class BaiVietController implements Serializable{
+    private static final Logger log = LoggerFactory.getLogger(BaiVietController.class);
+    
+    private final BaiVietDataProvider bvProvider    = new BaiVietDataProvider();
+    
+    private final ShowGrowlUtils showGrowl          = new ShowGrowlUtils();
+    
+    private final RoleUtils roleUtils               = new RoleUtils();
+    
+    private final ValidateUtils valiUtils           = new ValidateUtils();
+    
+    private List<BaiVietModel> dsBaiViet            = new ArrayList();
+    
+    private int viewMode;                                             // 0 là form danh sách, 1 là form cập nhật
+    
+    private boolean editMode;
+    
+    private int dmIDFilter;
+    
+    private String tieuDeFilter;
+    
+    private Date taoTuNgayFilter;
+    
+    private Date taoDenNgayFilter;
+    
+    private Date xuatBanTuNgayFilter;
+    
+    private Date xuatBanDenNgayFilter;
     
     public BaiVietController() {
-        
+        if(roleUtils.checkRole(Constant.ROLE_ADMIN_BAIVIET)){
+            actionGetDanhSachBaiViet();
+            viewMode = 0;
+        }  else {
+            viewMode = Constant.CODE_ERROR_500;
+        }
+    }
+    
+    private void actionGetDanhSachBaiViet(){
+        dsBaiViet = bvProvider.getDanhSachBaiViet(null, null, null, null);
+    }
+    
+
+    public int getViewMode() {
+        return viewMode;
+    }
+
+    public void setViewMode(int viewMode) {
+        this.viewMode = viewMode;
+    }
+
+    public boolean isEditMode() {
+        return editMode;
+    }
+
+    public void setEditMode(boolean editMode) {
+        this.editMode = editMode;
+    }
+
+    public List<BaiVietModel> getDsBaiViet() {
+        return dsBaiViet;
+    }
+
+    public void setDsBaiViet(List<BaiVietModel> dsBaiViet) {
+        this.dsBaiViet = dsBaiViet;
+    }
+
+    public int getDmIDFilter() {
+        return dmIDFilter;
+    }
+
+    public void setDmIDFilter(int dmIDFilter) {
+        this.dmIDFilter = dmIDFilter;
+    }
+
+    public String getTieuDeFilter() {
+        return tieuDeFilter;
+    }
+
+    public void setTieuDeFilter(String tieuDeFilter) {
+        this.tieuDeFilter = tieuDeFilter;
+    }
+
+    public Date getTaoTuNgayFilter() {
+        return taoTuNgayFilter;
+    }
+
+    public void setTaoTuNgayFilter(Date taoTuNgayFilter) {
+        this.taoTuNgayFilter = taoTuNgayFilter;
+    }
+
+    public Date getTaoDenNgayFilter() {
+        return taoDenNgayFilter;
+    }
+
+    public void setTaoDenNgayFilter(Date taoDenNgayFilter) {
+        this.taoDenNgayFilter = taoDenNgayFilter;
+    }
+
+    public Date getXuatBanTuNgayFilter() {
+        return xuatBanTuNgayFilter;
+    }
+
+    public void setXuatBanTuNgayFilter(Date xuatBanTuNgayFilter) {
+        this.xuatBanTuNgayFilter = xuatBanTuNgayFilter;
+    }
+
+    public Date getXuatBanDenNgayFilter() {
+        return xuatBanDenNgayFilter;
+    }
+
+    public void setXuatBanDenNgayFilter(Date xuatBanDenNgayFilter) {
+        this.xuatBanDenNgayFilter = xuatBanDenNgayFilter;
     }
     
 }

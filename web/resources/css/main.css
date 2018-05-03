@@ -70,6 +70,9 @@ a:hover {
         width: 100% !important;
     }
 }
+.skin-blue .main-header .navbar .nav>li>a {
+    height: 50px !important;
+}
 /*
     Customize Bootfaces Css
 */

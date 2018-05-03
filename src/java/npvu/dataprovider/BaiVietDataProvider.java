@@ -7,7 +7,9 @@ package npvu.dataprovider;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import npvu.model.BaiVietModel;
 import npvu.model.DanhMucBaiVietModel;
 import npvu.util.HibernateUtil;
 import org.hibernate.Session;
@@ -79,5 +81,30 @@ public class BaiVietDataProvider implements Serializable{
             session.close();
 	}
         return result;
+    }
+    
+    
+    public List<BaiVietModel> getDanhSachBaiViet(String dmIDFilter, String tieuDeFilter,
+            Date taoTuNgayFilter, Date taoDenNgayFilter){
+        Session session = HibernateUtil.currentSession();
+        List<BaiVietModel> dsBaiViet = new ArrayList();
+        String where = "";
+        
+        try {
+            session.beginTransaction();
+            dsBaiViet = session.createSQLQuery("SELECT *"
+                    + " FROM baiviet bv "
+                    + " LEFT JOIN taikhoan tk "
+                    + " ON tk.taikhoan_id = bv.taikhoan_id "
+                    + " LEFT JOIN danhmuc_baiviet dmbv "
+                    + " ON dmbv.danhmuc_baiviet_id = bv.danhmuc_baiviet_id "                   
+                    + " WHERE 1 = 1 " + where).addEntity(BaiVietModel.class).list();
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            log.error("Lỗi get danh sách bài viết {}", e);
+	} finally {
+            session.close();
+	}
+        return dsBaiViet;
     }
 }
