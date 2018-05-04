@@ -123,6 +123,25 @@ public class BaiVietDataProvider implements Serializable{
         return dsBaiViet;
     }
     
+    public BaiVietModel getBaiVietByID(long baiVietID){
+        Session session = HibernateUtil.currentSession();
+        BaiVietModel objBaiViet = new BaiVietModel();        
+        try {
+            session.beginTransaction();
+            objBaiViet = (BaiVietModel) session.createSQLQuery(" SELECT * "
+                    + " FROM baiviet "
+                    + " WHERE baiviet_id = "+baiVietID)
+                    .addEntity(BaiVietModel.class)
+                    .uniqueResult();
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            log.error("Lỗi get bài viết ID: "+baiVietID+" {}", e);
+	} finally {
+            session.close();
+	}
+        return objBaiViet;
+    }
+    
     public boolean updateBaiViet(BaiVietModel objBaiViet){
         Session session = HibernateUtil.currentSession();
         try {

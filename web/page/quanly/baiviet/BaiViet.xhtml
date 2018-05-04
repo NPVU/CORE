@@ -110,7 +110,7 @@
                                                         </b:dataTableColumn>                                                       
                                                         <b:dataTableColumn styleClass="text-center" orderable="false">
                                                             <f:facet name="header">Hành động</f:facet>
-                                                            <b:commandLink icon-awesome="fa-edit" />                                                                                                               
+                                                            <b:commandButton icon-awesome="fa-edit" actionListener="#{BaiVietController.preAcrionEditBaiViet(item.baiviet_id)}"/>                                                                                                               
                                                         </b:dataTableColumn>
                                                     </b:dataTable>
                                                 </div>
@@ -200,6 +200,7 @@
                                                                        width="100%"
                                                                        height="400px"
                                                                        required="false"
+                                                                       value="#{BaiVietController.objBaiViet.noiDung}"
                                                                        requiredMessage="Vui lòng nhập nội dung bài viết !"/>
                                                             <h:message for="editorNoiDung" />                                                            
                                                         </div>

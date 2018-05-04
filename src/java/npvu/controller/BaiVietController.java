@@ -95,6 +95,14 @@ public class BaiVietController implements Serializable{
         objBaiViet = new BaiVietModel();
         viewMode = 1;
         editMode = false;
+        tabIndex = 0;
+    }
+    
+    public void preAcrionEditBaiViet(long baiVietID){
+        objBaiViet = bvProvider.getBaiVietByID(baiVietID);
+        viewMode = 1;
+        editMode = true;
+        tabIndex = 0;
     }
     
     public void actionUpdateBaiViet(){
