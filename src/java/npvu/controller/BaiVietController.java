@@ -150,6 +150,19 @@ public class BaiVietController implements Serializable{
         return vaild;
     }
     
+    public void actionSelectBaiViet(long baiVietID){
+        objBaiViet = bvProvider.getBaiVietByID(baiVietID);
+    }
+    
+    public void actionDeleteBaiViet(BaiVietModel baiViet){
+        if(bvProvider.deleteBaiViet(objBaiViet)){
+            showGrowl.showMessageSuccess("Xóa bài viết '"+baiViet.getTieuDe()+"' thành công !");
+        } else {
+            showGrowl.showMessageFatal("Xóa bài viết '"+baiViet.getTieuDe()+"' thất bại !");
+        }
+        actionGetDanhSachBaiViet();
+    }
+    
     public void actionChangeViewMode(int viewMode){
         this.viewMode = viewMode;
     }

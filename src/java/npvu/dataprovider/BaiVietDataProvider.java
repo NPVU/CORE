@@ -157,4 +157,20 @@ public class BaiVietDataProvider implements Serializable{
 	}
         return true;
     }
+    
+    public boolean deleteBaiViet(BaiVietModel objBaiViet){
+        Session session = HibernateUtil.currentSession();
+        try {
+            session.beginTransaction();
+            session.delete(objBaiViet);
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            session.getTransaction().rollback();
+            log.error("Lỗi delete bài viết <<" + objBaiViet.getTieuDe() + ">> {}", e);
+            return false;
+	} finally {
+            session.close();
+	}
+        return true;
+    }
 }
