@@ -89,7 +89,9 @@ a:hover {
 .verify-lock .modal-body {
     height: 120px;
 }
-
+.content-ckeditor img{
+    width: 100% !important;
+}
 .box-body table{
     width: 100% !important;
 }
@@ -121,6 +123,32 @@ input + label {
 button .btn-edit,button .btn-lock,button .btn-unlock,button .btn-delete {
     max-width: 40px !important;
 }
+
+.btn-icon {
+    display: inline-block !important;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid #f3e6e6;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 13px !important;
+    line-height: 1.428571429;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.btn-icon:hover{
+    background-color: #ffffff;
+}
+
 
 .alert-info {
     background-color: #00a65a !important; 

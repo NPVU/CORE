@@ -42,11 +42,14 @@ and open the template in the editor.
         <pattern value="/quan-ly/danh-muc-bai-viet/" />
         <view-id value="/faces/page/quanly/baiviet/DanhMucBaiViet.xhtml" />
     </url-mapping>
-    <url-mapping id="DanhMucBaiViet">
+    <url-mapping id="QuanLyBaiViet">
         <pattern value="/quan-ly/bai-viet/" />
         <view-id value="/faces/page/quanly/baiviet/BaiViet.xhtml" />
     </url-mapping>
-    
+    <url-mapping id="QuanLyPreviewBaiViet">
+        <pattern value="/quan-ly/bai-viet/preview/" />
+        <view-id value="/faces/page/quanly/baiviet/Preview.xhtml" />
+    </url-mapping>
     <url-mapping id="error401">
         <pattern value="/error/401/" />
         <view-id value="/faces/page/error/401.xhtml" />

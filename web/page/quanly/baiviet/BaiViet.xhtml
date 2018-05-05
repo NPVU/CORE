@@ -110,11 +110,24 @@
                                                     </b:dataTableColumn>                                                       
                                                     <b:dataTableColumn styleClass="text-center" orderable="false">
                                                         <f:facet name="header">Hành động</f:facet>
-                                                        <b:commandButton icon-awesome="fa-edit" class="btn-edit margin-2" style="width:60px;"
-                                                                         actionListener="#{BaiVietController.preAcrionEditBaiViet(item.baiviet_id)}"
-                                                                         tooltip="Chỉnh sửa bài viết"/>
-                                                        <b:commandButton icon-awesome="fa-close" class="margin-2 text-red" style="width:60px;"
-                                                                         tooltip="Xóa bài viết"
+
+                                                        <span class="btn-icon">
+                                                            <a href="#{request.contextPath}/quan-ly/bai-viet/preview/?id=#{item.baiviet_id}"
+                                                               target="_blank">
+                                                                <i class="fa fa-eye"></i>
+                                                            </a>
+                                                        </span>
+                                                        <span class="btn-icon" 
+                                                              onclick="$('.btnEditBaiViet').click();">
+                                                            <i class="fa fa-edit"></i>
+                                                        </span>
+                                                        <span class="btn-icon text-red"
+                                                              onclick="$('.btnDeleteBaiViet').click();">
+                                                            <i class="fa fa-close"></i>
+                                                        </span>
+                                                        <b:commandButton style="display: none;" styleClass="btnEditBaiViet"
+                                                                         actionListener="#{BaiVietController.preAcrionEditBaiViet(item.baiviet_id)}"/>
+                                                        <b:commandButton style="display: none;" styleClass="btnDeleteBaiViet"
                                                                          onclick="$('.verify-delete').modal();"> 
                                                             <f:ajax listener="#{BaiVietController.actionSelectBaiViet(item.baiviet_id)}"/>
                                                         </b:commandButton>
@@ -146,6 +159,18 @@
                                           onclick="$('.verify-delete').modal('hide');">                                        
                                 </b:button>
                             </div>
+                        </b:modal>
+                        <b:modal id="modalPreview"
+                                 styleClass="modalPreview"
+                                 title="Xem trước bài viết">
+
+                            <ui:include src="../../UI_DisplayBaiViet.xhtml">
+                                <ui:param name="tieude" value="#{BaiVietController.objBaiViet.tieuDe}"/>
+                                <ui:param name="noidung" value="#{BaiVietController.objBaiViet.noiDung}"/>
+                            </ui:include>                               
+                            <f:facet name="footer">
+                                <b:button icon-awesome="fa-close" value="Close" dismiss="modal" />
+                            </f:facet>
                         </b:modal>
                     </b:form>
 
@@ -210,13 +235,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-t-15">
                                             <div class="col-md-3 col-lg-3"></div>
-                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">
-                                                <b:button onclick="$('.modalPreview').modal()"
-                                                          value="Xem trước"
-                                                          icon-awesome="fa-eye"
-                                                          class="btn btn-primary margin-2">
-                                                    
-                                                </b:button>
+                                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 text-center">                                                
                                                 <b:commandButton styleClass="btn btn-danger margin-2"
                                                                  value="Cập nhật"
                                                                  icon-awesome="fa-save"                                                                     
@@ -240,19 +259,7 @@
                             <f:facet name="footer">
                                 <b:button icon-awesome="fa-close" value="Close" dismiss="modal" />
                             </f:facet>
-                        </b:modal>
-                        <b:modal id="modalPreview"
-                                 styleClass="modalPreview"
-                                 title="Xem trước bài viết">
-
-                            <ui:include src="../../UI_DisplayBaiViet.xhtml">
-                                <ui:param name="tieude" value="#{BaiVietController.objBaiViet.tieuDe}"/>
-                                <ui:param name="noidung" value="#{BaiVietController.objBaiViet.noiDung}"/>
-                            </ui:include>                               
-                            <f:facet name="footer">
-                                <b:button icon-awesome="fa-close" value="Close" dismiss="modal" />
-                            </f:facet>
-                        </b:modal>
+                        </b:modal>                        
                     </b:form>
                     <h:form style="display:none;">
                         <h:commandButton styleClass="btnTroVe" actionListener="#{BaiVietController.actionChangeViewMode(0)}"/>                            

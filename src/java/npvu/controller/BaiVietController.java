@@ -7,6 +7,7 @@ package npvu.controller;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
 import npvu.constant.FileConstant;
 import npvu.constant.MessageConstant;
@@ -74,12 +77,19 @@ public class BaiVietController implements Serializable{
     private Date xuatBanDenNgayFilter;
     
     public BaiVietController() {
-        if(roleUtils.checkRole(Constant.ROLE_ADMIN_BAIVIET)){
-            actionGetDanhSachBaiViet();
-            viewMode = 0;
-        }  else {
+        if (roleUtils.checkRole(Constant.ROLE_ADMIN_BAIVIET)) {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            String strBvID = Arrays.toString(ec.getRequestParameterValuesMap().get("id"));
+            if (strBvID.equals("null")) {
+                actionGetDanhSachBaiViet();
+                viewMode = 0;
+            } else {
+                long baiVietID = Long.parseLong(strBvID.substring(1, strBvID.length() - 1));
+                objBaiViet = bvProvider.getBaiVietByID(4);
+            }
+        } else {
             viewMode = Constant.CODE_ERROR_500;
-        }        
+        }
     }
     
     private void actionGetDanhSachBaiViet(){
