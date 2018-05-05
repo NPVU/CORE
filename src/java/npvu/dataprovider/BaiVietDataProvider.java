@@ -67,6 +67,22 @@ public class BaiVietDataProvider implements Serializable{
         return true;
     }
     
+    public boolean deleteDanhMucBaiViet(DanhMucBaiVietModel objDMBaiViet){
+        Session session = HibernateUtil.currentSession();
+        try {
+            session.beginTransaction();
+            session.delete(objDMBaiViet);
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            session.getTransaction().rollback();
+            log.error("Lỗi delete danh mục bài viết <<" + objDMBaiViet.getTen() + ">> {}", e);
+            return false;
+	} finally {
+            session.close();
+	}
+        return true;
+    }
+    
     public boolean checkExistTenDanhMuc(String tenDanhMuc){
         Session session = HibernateUtil.currentSession();
         boolean result = true;

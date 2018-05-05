@@ -1,8 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
     <ui:composition template="./../../../version_1.xhtml"
+                    xmlns="http://www.w3.org/1999/xhtml"
                     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                     xmlns:h="http://xmlns.jcp.org/jsf/html"
                     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
@@ -90,7 +89,20 @@
                                                         </b:dataTableColumn>                                                       
                                                         <b:dataTableColumn styleClass="text-center" orderable="false">
                                                             <f:facet name="header">Hành động</f:facet>
-                                                            <b:commandLink icon-awesome="fa-edit" />                                                                                                               
+                                                            <span class="btn-icon" 
+                                                                  onclick="$('.btnEditDanhMucBaiViet').click();">
+                                                                <i class="fa fa-edit"></i>
+                                                            </span>
+                                                            <span class="btn-icon text-red"
+                                                              onclick="$('.btnDeleteDanhMucBaiViet').click();">
+                                                            <i class="fa fa-close"></i>
+                                                        </span>
+                                                            <b:commandButton style="display: none;" styleClass="btnEditDanhMucBaiViet"
+                                                                             actionListener="#{DanhMucBaiVietController.preActionEditDanhMuc(item)}"/>
+                                                            <b:commandButton style="display: none;" styleClass="btnDeleteDanhMucBaiViet"
+                                                                         onclick="$('.verify-delete').modal();"> 
+                                                            <f:ajax listener="#{DanhMucBaiVietController.actionSelectDanhMucBaiViet(item)}"/>
+                                                        </b:commandButton>
                                                         </b:dataTableColumn>
                                                     </b:dataTable>
                                                 </div>
@@ -103,16 +115,15 @@
                             <b:modal class="verify-delete" title="YÊU CẦU XÁC NHẬN">
                                 <div class="row text-center">
                                     <label>
-                                        <h4>Bạn có đồng ý xóa danh mục này ?</h4>
+                                        <h4 style="font-weight: normal">Bạn có đồng ý xóa danh mục bài viết này ?</h4>
                                     </label>
                                 </div>
                                 <div class="row text-center">
                                     <b:commandButton icon-awesome="fa-save"
-                                        value="Đồng ý"
-                                        class="btn-danger margin-2"
-                                        onclick="$('.verify-delete').modal('hide');">
-
-                                        <f:ajax listener="#{taiKhoanController.actionLockUnLockTaiKhoan(taiKhoanController.objTaiKhoan)}" />
+                                                     value="Đồng ý"
+                                                     class="btn-danger margin-2"
+                                                     onclick="$('.verify-delete').modal('hide');"
+                                                     actionListener="#{DanhMucBaiVietController.actionDeleteDanhMucBaiViet(DanhMucBaiVietController.objDMBaiViet)}">
                                     </b:commandButton>
                                     <b:button icon-awesome="fa-close"
                                               value="Hủy bỏ"
@@ -194,4 +205,3 @@
         </ui:define>
 
     </ui:composition>
-</html>

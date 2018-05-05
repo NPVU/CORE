@@ -78,9 +78,17 @@ public class DanhMucBaiVietController implements Serializable{
         viewMode = 1;
     }
     
+    public void preActionEditDanhMuc(DanhMucBaiVietModel dmBVModel){
+        objDMBaiViet = dmBVModel;
+        editMode = true;
+        viewMode = 1;
+    }
+    
     public void actionUpdateDanhMuc(){
         if(actionVaildFormUpdateDanhMuc()){
-            objDMBaiViet.setNgayTao(DateUtils.getCurrentDate());
+            if(!editMode){
+                objDMBaiViet.setNgayTao(DateUtils.getCurrentDate());
+            }            
             if(bvProvider.updateDanhMucBaiViet(objDMBaiViet)){
                 showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
             } else {
@@ -93,6 +101,15 @@ public class DanhMucBaiVietController implements Serializable{
         actionGetDanhSachDanhMucBaiViet();
         editMode = false;
         viewMode = 0;        
+    }
+    
+    public void actionDeleteDanhMucBaiViet(DanhMucBaiVietModel dmBVModel){
+        if(bvProvider.deleteDanhMucBaiViet(objDMBaiViet)){
+            showGrowl.showMessageSuccess("Xóa danh mục \""+objDMBaiViet.getTen()+"\" thành công !");
+        } else {
+            showGrowl.showMessageFatal("Xóa danh mục \""+objDMBaiViet.getTen()+"\" thất bại !");
+        }
+        actionGetDanhSachDanhMucBaiViet();
     }
     
     public boolean actionVaildFormUpdateDanhMuc(){
@@ -109,11 +126,15 @@ public class DanhMucBaiVietController implements Serializable{
             return false;
         }
         
-        if(bvProvider.checkExistTenDanhMuc(objDMBaiViet.getTen())){
+        if(!editMode && bvProvider.checkExistTenDanhMuc(objDMBaiViet.getTen())){
             showGrowl.showMessageError("Tên danh mục " + MessageConstant.MESSAGE_ERROR_EXISTS, uicTenDanhMuc);
             vaild = false;
         }
         return vaild;
+    }
+    
+    public void actionSelectDanhMucBaiViet(DanhMucBaiVietModel dmBVModel){
+        objDMBaiViet = dmBVModel;
     }
     
     public void actionChangeViewMode(int mode){

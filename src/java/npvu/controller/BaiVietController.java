@@ -120,6 +120,7 @@ public class BaiVietController implements Serializable{
         if(actionVaildForm()){
             if(!editMode){ // Thêm mới
                 objBaiViet.setNgayTao(DateUtils.getCurrentDate());
+                objBaiViet.setTacGia(Login.tenHienThi);
                 if(objBaiViet.isXuatBan()){
                     objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
                 }
@@ -127,8 +128,7 @@ public class BaiVietController implements Serializable{
                 if(objBaiViet.isXuatBan() && objBaiViet.getNgayXuatBan() == null){
                     objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
                 }
-            }
-            objBaiViet.setTacGia(Login.tenHienThi);
+            }            
             long tapTinID;
             if(Session.statusUpload != null && Session.statusUpload == true){
                     tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
@@ -166,9 +166,9 @@ public class BaiVietController implements Serializable{
     
     public void actionDeleteBaiViet(BaiVietModel baiViet){
         if(bvProvider.deleteBaiViet(objBaiViet)){
-            showGrowl.showMessageSuccess("Xóa bài viết '"+baiViet.getTieuDe()+"' thành công !");
+            showGrowl.showMessageSuccess("Xóa bài viết \""+baiViet.getTieuDe()+"\" thành công !");
         } else {
-            showGrowl.showMessageFatal("Xóa bài viết '"+baiViet.getTieuDe()+"' thất bại !");
+            showGrowl.showMessageFatal("Xóa bài viết \""+baiViet.getTieuDe()+"\" thất bại !");
         }
         actionGetDanhSachBaiViet();
     }
