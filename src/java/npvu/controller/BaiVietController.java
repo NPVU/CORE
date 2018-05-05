@@ -79,7 +79,7 @@ public class BaiVietController implements Serializable{
             viewMode = 0;
         }  else {
             viewMode = Constant.CODE_ERROR_500;
-        }
+        }        
     }
     
     private void actionGetDanhSachBaiViet(){
@@ -99,6 +99,7 @@ public class BaiVietController implements Serializable{
     }
     
     public void preAcrionEditBaiViet(long baiVietID){
+        objBaiViet = new BaiVietModel();
         objBaiViet = bvProvider.getBaiVietByID(baiVietID);
         viewMode = 1;
         editMode = true;
@@ -106,31 +107,47 @@ public class BaiVietController implements Serializable{
     }
     
     public void actionUpdateBaiViet(){
-        if(!editMode){ // Thêm mới
-            objBaiViet.setNgayTao(DateUtils.getCurrentDate());
-            if(objBaiViet.isXuatBan()){
-                objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
+        if(actionVaildForm()){
+            if(!editMode){ // Thêm mới
+                objBaiViet.setNgayTao(DateUtils.getCurrentDate());
+                if(objBaiViet.isXuatBan()){
+                    objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
+                }
+            } else { // Chỉnh sửa
+                if(objBaiViet.isXuatBan() && objBaiViet.getNgayXuatBan() == null){
+                    objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
+                }
             }
-        } else { // Chỉnh sửa
-            if(objBaiViet.isXuatBan() && objBaiViet.getNgayXuatBan() == null){
-                objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
+            objBaiViet.setTacGia(Login.tenHienThi);
+            long tapTinID;
+            if(Session.statusUpload != null && Session.statusUpload == true){
+                    tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
+                    objBaiViet.setTapTinID(tapTinID);
             }
-        }
-        objBaiViet.setTacGia(Login.tenHienThi);
-        long tapTinID = 0;
-        if(Session.statusUpload != null && Session.statusUpload == true){
-                tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
-                objBaiViet.setTapTinID(tapTinID);
-        }
-        if(bvProvider.updateBaiViet(objBaiViet)){
-            showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
-        } else{
-            showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
+            if(bvProvider.updateBaiViet(objBaiViet)){
+                showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
+            } else{
+                showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
+            }
+        } else {
+            return;
         }
         UI_UploadFileController.resetValueFileToSession();
         actionGetDanhSachBaiViet();
         editMode = false;
-        viewMode = 0;        
+        viewMode = 0;
+    }
+    
+    public boolean actionVaildForm(){
+        boolean vaild = true;
+        if(objBaiViet.getTieuDe() == null || objBaiViet.getTieuDe().isEmpty()){
+            showGrowl.showMessageError("Vui lòng nhập tiêu đề bài viết", uicTieuDe);
+            vaild = false;
+        }
+        if(!vaild){
+            tabIndex = 0;
+        }
+        return vaild;
     }
     
     public void actionChangeViewMode(int viewMode){
