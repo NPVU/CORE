@@ -118,16 +118,16 @@
                                                             </a>
                                                         </span>
                                                         <span class="btn-icon" 
-                                                              onclick="$('.btnEditBaiViet').click();">
+                                                              onclick="$('.btnEditBaiViet_#{item.baiviet_id}').click();">
                                                             <i class="fa fa-edit"></i>
                                                         </span>
                                                         <span class="btn-icon text-red"
-                                                              onclick="$('.btnDeleteBaiViet').click();">
+                                                              onclick="$('.btnDeleteBaiViet_#{item.baiviet_id}').click();">
                                                             <i class="fa fa-close"></i>
                                                         </span>
-                                                        <b:commandButton style="display: none;" styleClass="btnEditBaiViet"
+                                                        <b:commandButton style="display: none;" styleClass="btnEditBaiViet_#{item.baiviet_id}"
                                                                          actionListener="#{BaiVietController.preAcrionEditBaiViet(item.baiviet_id)}"/>
-                                                        <b:commandButton style="display: none;" styleClass="btnDeleteBaiViet"
+                                                        <b:commandButton style="display: none;" styleClass="btnDeleteBaiViet_#{item.baiviet_id}"
                                                                          onclick="$('.verify-delete').modal();"> 
                                                             <f:ajax listener="#{BaiVietController.actionSelectBaiViet(item.baiviet_id)}"/>
                                                         </b:commandButton>
@@ -169,7 +169,7 @@
                                 <ui:param name="noidung" value="#{BaiVietController.objBaiViet.noiDung}"/>
                             </ui:include>                               
                             <f:facet name="footer">
-                                <b:button icon-awesome="fa-close" value="Close" dismiss="modal" />
+                                <b:button icon-awesome="fa-close" value="Đóng" dismiss="modal" />
                             </f:facet>
                         </b:modal>
                     </b:form>
@@ -257,7 +257,7 @@
                             <iframe src="#{request.contextPath}/faces/page/UI_UploadFileImage.xhtml"
                                     frameborder="0" width="100%" height="300px" scrolling="yes"/>
                             <f:facet name="footer">
-                                <b:button icon-awesome="fa-close" value="Close" dismiss="modal" />
+                                <b:button icon-awesome="fa-close" value="Đóng" dismiss="modal" />
                             </f:facet>
                         </b:modal>                        
                     </b:form>

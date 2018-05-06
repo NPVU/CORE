@@ -154,7 +154,7 @@ body {
   padding-right: 15px;
 }
 /* H1 - H6 font */
-h1,
+/*h1,
 h2,
 h3,
 h4,
@@ -167,7 +167,7 @@ h6,
 .h5,
 .h6 {
   font-family: 'Source Sans Pro', sans-serif;
-}
+}*/
 /* General Links */
 a {
   color: #337ab7;
@@ -2549,11 +2549,11 @@ a:focus {
   background: #f7f7f7;
 }
 /* NAV PILLS */
-.nav-pills > li > a {
+/*.nav-pills > li > a {
   border-radius: 0;
   border-top: 3px solid transparent;
   color: #444;
-}
+}*/
 .nav-pills > li > a > .fa,
 .nav-pills > li > a > .glyphicon,
 .nav-pills > li > a > .ion {
@@ -2568,19 +2568,19 @@ a:focus {
   font-weight: 600;
 }
 /* NAV STACKED */
-.nav-stacked > li > a {
+/*.nav-stacked > li > a {
   border-radius: 0;
   border-top: 0;
   border-left: 3px solid transparent;
   color: #444;
-}
-.nav-stacked > li.active > a,
+}*/
+/*.nav-stacked > li.active > a,
 .nav-stacked > li.active > a:hover {
   background: transparent;
   color: #444;
   border-top: 0;
   border-left-color: #3c8dbc;
-}
+}*/
 .nav-stacked > li.header {
   border-bottom: 1px solid #ddd;
   color: #777;

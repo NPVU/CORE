@@ -90,6 +90,11 @@ img {
         width: 70%;
     }
     
+    .modalThongTinTaiKhoan > .modal-dialog{
+        margin-top: 40px !important;
+        width: 70%;
+    }
+    
     /* Home Section */
 .home{
     background: url(../img/homebg.jpg) no-repeat 100% 100%;

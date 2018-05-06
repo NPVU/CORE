@@ -28,7 +28,10 @@ and open the template in the editor.
         <pattern value="/manager/account/" />
         <view-id value="/faces/page/quanly/taikhoan/TaiKhoan.xhtml" />
     </url-mapping>
-    
+    <url-mapping id="ThongTinTaiKhoan">
+        <pattern value="/quan-ly/thong-tin-tai-khoan/" />
+        <view-id value="/faces/page/quanly/taikhoan/ThongTinTaiKhoan.xhtml" />
+    </url-mapping>
     <url-mapping id="LichSuDangNhap_1">
         <pattern value="/quan-ly/lich-su-dang-nhap/" />
         <view-id value="/faces/page/quanly/taikhoan/LichSuDangNhap.xhtml" />

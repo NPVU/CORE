@@ -33,10 +33,8 @@ import npvu.util.ShowGrowlUtils;
 public class Login implements Serializable{
     ShowGrowlUtils showGrow = new ShowGrowlUtils();
     
+    public static TaiKhoanModel objTaiKhoan;
     public static boolean logined;
-    public static long   taiKhoanID;
-    public static String tenDangNhap;
-    public static String tenHienThi;
     public static String pathAvatar;
     public static TapTinModel objTapTin;
     public static Date thoiGian;
@@ -69,7 +67,7 @@ public class Login implements Serializable{
         
         // Lấy tài khoản từ database
         TaiKhoanDataProvider tkProvider     = new TaiKhoanDataProvider();               
-        TaiKhoanModel objTaiKhoan           = tkProvider.getTaiKhoanByTenDangNhap(tempTaiKhoan);        
+        objTaiKhoan                         = tkProvider.getTaiKhoanByTenDangNhap(tempTaiKhoan);        
         
         if(objTaiKhoan != null){
             if(objTaiKhoan.getMatKhau().equals(EncryptionUtils.encryptMatKhau(tempMatKhau))){
@@ -77,9 +75,6 @@ public class Login implements Serializable{
                 TapTinDataProvider tapTinProvider   = new TapTinDataProvider();
                 objTapTin       = tapTinProvider.getTapTin(objTaiKhoan.getTapTinID());
                 logined         = true;
-                taiKhoanID      = objTaiKhoan.getId();
-                tenDangNhap     = objTaiKhoan.getTenDangNhap();
-                tenHienThi      = objTaiKhoan.getTenHienThi();
                 thoiGian        = Calendar.getInstance().getTime();
                 roles           = roleProvider.getDanhSachRoleByTaiKhoan(objTaiKhoan.getId());
                 tempTaiKhoan    = null;               
@@ -102,10 +97,14 @@ public class Login implements Serializable{
         tempMatKhau = null;
     }
     
+    public void refreshTaiKhoan(String tenDangNhap){
+        TaiKhoanDataProvider tkProvider     = new TaiKhoanDataProvider();               
+        objTaiKhoan                         = tkProvider.getTaiKhoanByTenDangNhap(tenDangNhap);
+    }
+    
     public void logout(){
         logined = false;
-        tenDangNhap = null;
-        tenHienThi = null;
+        objTaiKhoan = null;
         thoiGian = null;
         tempMatKhau = null;
         try {            
@@ -118,14 +117,6 @@ public class Login implements Serializable{
 
     public boolean isLogined() {
         return logined;
-    }
-
-    public String getTenDangNhap() {
-        return tenDangNhap;
-    }
-
-    public String getTenHienThi() {
-        return tenHienThi;
     }
 
     public Date getThoiGian() {
@@ -147,10 +138,6 @@ public class Login implements Serializable{
     public void setTempMatKhau(String tempMatKhau) {
         this.tempMatKhau = tempMatKhau;
     }
-
-    public long getTaiKhoanID() {
-        return taiKhoanID;
-    }
     
     public String getPathAvatar() {
         return pathAvatar;
@@ -158,5 +145,13 @@ public class Login implements Serializable{
     
     public TapTinModel getObjTapTin() {
         return objTapTin;
+    }
+
+    public TaiKhoanModel getObjTaiKhoan() {
+        return objTaiKhoan;
+    }
+
+    public void setObjTaiKhoan(TaiKhoanModel objTaiKhoan) {
+        this.objTaiKhoan = objTaiKhoan;
     }
 }

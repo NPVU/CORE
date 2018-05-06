@@ -85,7 +85,7 @@ public class BaiVietController implements Serializable{
                 viewMode = 0;
             } else {
                 long baiVietID = Long.parseLong(strBvID.substring(1, strBvID.length() - 1));
-                objBaiViet = bvProvider.getBaiVietByID(4);
+                objBaiViet = bvProvider.getBaiVietByID(baiVietID);
             }
         } else {
             viewMode = Constant.CODE_ERROR_500;
@@ -120,7 +120,7 @@ public class BaiVietController implements Serializable{
         if(actionVaildForm()){
             if(!editMode){ // Thêm mới
                 objBaiViet.setNgayTao(DateUtils.getCurrentDate());
-                objBaiViet.setTacGia(Login.tenHienThi);
+                objBaiViet.setTacGia(Login.objTaiKhoan.getTenHienThi());
                 if(objBaiViet.isXuatBan()){
                     objBaiViet.setNgayXuatBan(DateUtils.getCurrentDate());
                 }

@@ -90,16 +90,16 @@
                                                         <b:dataTableColumn styleClass="text-center" orderable="false">
                                                             <f:facet name="header">Hành động</f:facet>
                                                             <span class="btn-icon" 
-                                                                  onclick="$('.btnEditDanhMucBaiViet').click();">
+                                                                  onclick="$('.btnEditDanhMucBaiViet_#{item.id}').click();">
                                                                 <i class="fa fa-edit"></i>
                                                             </span>
                                                             <span class="btn-icon text-red"
-                                                              onclick="$('.btnDeleteDanhMucBaiViet').click();">
+                                                              onclick="$('.btnDeleteDanhMucBaiViet_#{item.id}').click();">
                                                             <i class="fa fa-close"></i>
                                                         </span>
-                                                            <b:commandButton style="display: none;" styleClass="btnEditDanhMucBaiViet"
+                                                            <b:commandButton style="display: none;" styleClass="btnEditDanhMucBaiViet_#{item.id}"
                                                                              actionListener="#{DanhMucBaiVietController.preActionEditDanhMuc(item)}"/>
-                                                            <b:commandButton style="display: none;" styleClass="btnDeleteDanhMucBaiViet"
+                                                            <b:commandButton style="display: none;" styleClass="btnDeleteDanhMucBaiViet_#{item.id}"
                                                                          onclick="$('.verify-delete').modal();"> 
                                                             <f:ajax listener="#{DanhMucBaiVietController.actionSelectDanhMucBaiViet(item)}"/>
                                                         </b:commandButton>

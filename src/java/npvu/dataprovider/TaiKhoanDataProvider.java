@@ -135,6 +135,22 @@ public class TaiKhoanDataProvider implements Serializable {
         return true;
     }
     
+    public boolean updateTaiKhoan(TaiKhoanModel objTaiKhoan){
+        Session session = HibernateUtil.currentSession();
+        try {
+            session.beginTransaction();
+            session.update(objTaiKhoan);                      
+            session.getTransaction().commit();
+	} catch (Exception e) {
+            session.getTransaction().rollback();
+            log.error("Lỗi update tài khoản <<" + objTaiKhoan.getTenDangNhap() + ">> {}", e);
+            return false;
+	} finally {
+            session.close();
+	}
+        return true;
+    }
+    
     public void updateRole(long taiKhoanID, String[] roles, Session session){
         if(roles.length == 0){
             roles = new String[1];
