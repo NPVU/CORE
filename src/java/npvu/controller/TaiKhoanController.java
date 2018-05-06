@@ -19,7 +19,7 @@ import npvu.constant.MessageConstant;
 import npvu.dataprovider.RoleDataProvider;
 import npvu.dataprovider.TaiKhoanDataProvider;
 import npvu.model.TaiKhoanModel;
-import npvu.session.Session;
+import npvu.session.SessionBean;
 import npvu.util.DateUtils;
 import npvu.util.EncryptionUtils;
 import npvu.util.RoleUtils;
@@ -114,7 +114,7 @@ public class TaiKhoanController implements Serializable{
         long tapTinID;
         objTaiKhoan.setNgayTao(DateUtils.getCurrentDate());
         if ( editMode || actionVaildFormTaoTaiKhoan()) {
-            if(Session.statusUpload != null && Session.statusUpload == true){
+            if(SessionBean.statusUpload != null && SessionBean.statusUpload == true){
                 tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_AVATAR);
                 objTaiKhoan.setTapTinID(tapTinID);
             }

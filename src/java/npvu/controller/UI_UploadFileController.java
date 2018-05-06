@@ -23,7 +23,7 @@ import npvu.constant.FileConstant;
 import npvu.constant.MessageConstant;
 import npvu.dataprovider.TapTinDataProvider;
 import npvu.model.TapTinModel;
-import npvu.session.Session;
+import npvu.session.SessionBean;
 import npvu.util.ClassCommon;
 import npvu.util.DateUtils;
 import npvu.util.FileUtils;
@@ -97,11 +97,11 @@ public class UI_UploadFileController implements Serializable{
             outputStream.close();
             inputStream.close();
             statusUpload = true;
-            Session.statusUpload = true;
+            SessionBean.statusUpload = true;
             setValueFileToSession();            
         } else {   
             statusUpload = false;
-            Session.statusUpload = false;       
+            SessionBean.statusUpload = false;       
             showGrowl.showMessageError(MessageConstant.MESSAGE_ERROR_EXTENSION_AVATAR, uicFile);
         }
     }
@@ -128,18 +128,18 @@ public class UI_UploadFileController implements Serializable{
             outputStream.close();
             inputStream.close();
             statusUpload = true;
-            Session.statusUpload = true;
+            SessionBean.statusUpload = true;
             setValueFileToSession();            
         } else {   
             statusUpload = false;
-            Session.statusUpload = false;       
+            SessionBean.statusUpload = false;       
             showGrowl.showMessageError(MessageConstant.MESSAGE_ERROR_EXTENSION_AVATAR, uicFile);
         }
     }
     
     public void showMessageStatusUploadFile(){
-        if(Session.statusUpload != null){
-            if(Session.statusUpload){
+        if(SessionBean.statusUpload != null){
+            if(SessionBean.statusUpload){
                 showGrowl.showMessageSuccess(MessageConstant.MESSAGE_UPLOAD_SUCCESS);
             } else {
                 showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_EXTENSION_AVATAR);
@@ -159,37 +159,48 @@ public class UI_UploadFileController implements Serializable{
     
     public long actionUpdateTapTin(String path){
         objTapTin = new TapTinModel();        
-        File f1 = new File(Session.pathFile);
+        File f1 = new File(SessionBean.pathFile);
         if(f1.exists()){
-            File f2 = new File(ClassCommon.getPathResources()+path+Session.fileName);
+            File f2 = new File(ClassCommon.getPathResources()+path+SessionBean.fileName);
             f1.renameTo(f2);
             try {
                 InputStream ip = new FileInputStream(f2);
-                objTapTin.setTen(Session.fileRealName);
-                objTapTin.setTenLuuTru(Session.fileName);
+                objTapTin.setTen(SessionBean.fileRealName);
+                objTapTin.setTenLuuTru(SessionBean.fileName);
                 objTapTin.setSize(f2.length());
-                objTapTin.setExtension(FileUtils.getExtension(Session.pathFile));
+                objTapTin.setExtension(FileUtils.getExtension(SessionBean.pathFile));
                 objTapTin.setPath(f2.getAbsolutePath());
                 objTapTin.setNgayTao(DateUtils.getCurrentDate());
                 tapTinProvider.updateTapTin(objTapTin);
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(UI_UploadFileController.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if(f1.exists()){
+                f1.delete();
+            }
+            resetValueFileToSession();
         }
         return objTapTin.getId();
     }
     
     public void setValueFileToSession(){        
-        Session.fileName     = fileName;
-        Session.pathFile     = pathFile;
-        Session.fileRealName = fileRealName;
+        SessionBean.fileName     = fileName;
+        SessionBean.pathFile     = pathFile;
+        SessionBean.fileRealName = fileRealName;
     }
     
     public static void resetValueFileToSession(){
-        Session.statusUpload = null;
-        Session.fileName     = null;
-        Session.pathFile     = null;
-        Session.fileRealName = null;
+        SessionBean.statusUpload = false;
+        SessionBean.fileName     = null;
+        SessionBean.pathFile     = null;
+        SessionBean.fileRealName = null;
+    }
+    
+    public void resetValueFileToSessionFromHTML(){
+        SessionBean.statusUpload = false;
+        SessionBean.fileName     = null;
+        SessionBean.pathFile     = null;
+        SessionBean.fileRealName = null;
     }
     
     /* Getter & Setter */

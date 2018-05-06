@@ -98,8 +98,12 @@ public class Login implements Serializable{
     }
     
     public void refreshTaiKhoan(String tenDangNhap){
-        TaiKhoanDataProvider tkProvider     = new TaiKhoanDataProvider();               
+        TaiKhoanDataProvider tkProvider     = new TaiKhoanDataProvider();  
+        TapTinDataProvider tapTinProvider   = new TapTinDataProvider();
         objTaiKhoan                         = tkProvider.getTaiKhoanByTenDangNhap(tenDangNhap);
+        if(objTaiKhoan.getTapTinID() != 0){
+            objTapTin                       = tapTinProvider.getTapTin(objTaiKhoan.getTapTinID());
+        }
     }
     
     public void logout(){

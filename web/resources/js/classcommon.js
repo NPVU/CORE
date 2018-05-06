@@ -15,6 +15,7 @@ function verifyDelete(){
 
 function closeModal(cla){
     $('.'+cla).modal('hide');
+    $('.btnRenderAvatar').click();
 }
 
 

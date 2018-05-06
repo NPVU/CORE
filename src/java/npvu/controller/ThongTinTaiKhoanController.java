@@ -14,9 +14,13 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import npvu.constant.Constant;
+import npvu.constant.FileConstant;
 import npvu.constant.MessageConstant;
 import npvu.dataprovider.TaiKhoanDataProvider;
+import npvu.dataprovider.TapTinDataProvider;
 import npvu.model.TaiKhoanModel;
+import npvu.model.TapTinModel;
+import npvu.session.SessionBean;
 import npvu.util.EncryptionUtils;
 import npvu.util.RoleUtils;
 import npvu.util.ShowGrowlUtils;
@@ -38,6 +42,8 @@ public class ThongTinTaiKhoanController implements Serializable{
     
     private final TaiKhoanDataProvider tkProvider = new TaiKhoanDataProvider();
     
+    private final TapTinDataProvider ttProvider = new TapTinDataProvider();
+    
     private final ShowGrowlUtils showGrowl = new ShowGrowlUtils();
     
     private final RoleUtils roleUtils               = new RoleUtils();
@@ -49,6 +55,8 @@ public class ThongTinTaiKhoanController implements Serializable{
     private UIComponent uicReMatKhau;
     
     private TaiKhoanModel objTaiKhoan;
+    
+    private TapTinModel objTapTin;
     
     private String matKhau;
     
@@ -70,6 +78,7 @@ public class ThongTinTaiKhoanController implements Serializable{
             }
         } else {
             objTaiKhoan = tkProvider.getTaiKhoanByTenDangNhap(Login.objTaiKhoan.getTenDangNhap());
+            objTapTin = ttProvider.getTapTin(objTaiKhoan.getTapTinID());
         }
     }
     
@@ -77,9 +86,17 @@ public class ThongTinTaiKhoanController implements Serializable{
         tabIndex = 0;
         matKhau = reMatKhau = null;
         if(vaildFormThongTinTaiKhoan()){
+            long tapTinID = 0;
+            if(SessionBean.statusUpload != null && SessionBean.statusUpload == true){
+                tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_AVATAR);
+                objTaiKhoan.setTapTinID(tapTinID);
+            }
             if(tkProvider.updateTaiKhoan(objTaiKhoan)){
                 Login lg = new Login();
                 lg.refreshTaiKhoan(objTaiKhoan.getTenDangNhap());
+                if(tapTinID != 0){
+                    objTapTin = ttProvider.getTapTin(tapTinID);
+                }
                 showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
             } else {
                 showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
@@ -126,8 +143,8 @@ public class ThongTinTaiKhoanController implements Serializable{
         }
         if(vaild){
             if(!matKhau.equals(reMatKhau)){
-                showGrowl.showMessageError("Mật khẩu không khớp !", uicMatKhau);
-                showGrowl.showMessageError("Mật khẩu không khớp !", uicReMatKhau);
+                showGrowl.showMessageError(MessageConstant.MESSAGE_PASSWORD_NOT_SAME, uicMatKhau);
+                showGrowl.showMessageError(MessageConstant.MESSAGE_PASSWORD_NOT_SAME, uicReMatKhau);
                 matKhau = reMatKhau = null;
                 vaild = false;
             }
@@ -205,6 +222,14 @@ public class ThongTinTaiKhoanController implements Serializable{
 
     public void setTabIndex(int tabIndex) {
         this.tabIndex = tabIndex;
+    }
+
+    public TapTinModel getObjTapTin() {
+        return objTapTin;
+    }
+
+    public void setObjTapTin(TapTinModel objTapTin) {
+        this.objTapTin = objTapTin;
     }
     
 }

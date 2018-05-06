@@ -13,12 +13,23 @@ import javax.faces.bean.SessionScoped;
  *
  * @author npvu
  */
-@ManagedBean(name="Session")
+@ManagedBean(name="SessionBean")
 @SessionScoped
-public class Session implements Serializable{
-    public static Boolean statusUpload;
+public class SessionBean implements Serializable{
+    public static Boolean statusUpload = false;
     public static String pathFile;
     public static String fileName;
     public static String fileRealName;
     
+    public String getFileName(){
+        return fileName;
+    }
+    
+    public String getPathFile(){
+        return pathFile;
+    }
+    
+    public boolean isStatusUpload() {
+        return statusUpload;
+    }
 }

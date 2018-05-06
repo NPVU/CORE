@@ -22,7 +22,7 @@ import npvu.constant.FileConstant;
 import npvu.constant.MessageConstant;
 import npvu.dataprovider.BaiVietDataProvider;
 import npvu.model.BaiVietModel;
-import npvu.session.Session;
+import npvu.session.SessionBean;
 import npvu.util.DateUtils;
 import npvu.util.RoleUtils;
 import npvu.util.ShowGrowlUtils;
@@ -130,7 +130,7 @@ public class BaiVietController implements Serializable{
                 }
             }            
             long tapTinID;
-            if(Session.statusUpload != null && Session.statusUpload == true){
+            if(SessionBean.statusUpload != null && SessionBean.statusUpload == true){
                     tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
                     objBaiViet.setTapTinID(tapTinID);
             }
