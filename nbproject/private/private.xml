@@ -3,12 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/dataprovider/BaiVietDataProvider.java</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/controller/TaiKhoanController.java</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/controller/DanhMucBaiVietController.java</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/util/RoleUtils.java</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/controller/Login.java</file>
             <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/controller/BaiVietController.java</file>
-            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/page/quanly/baiviet/DanhMucBaiViet.xhtml</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/page/quanly/taikhoan/ThongTinTaiKhoan.xhtml</file>
             <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/page/quanly/baiviet/BaiViet.xhtml</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/src/java/npvu/controller/ThongTinTaiKhoanController.java</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/page/quanly/taikhoan/TaiKhoan.xhtml</file>
+            <file>file:/E:/NPVU_PROJECT/NPVU-GitHub/CORE/web/resources/css/AdminLTE.css</file>
         </group>
     </open-files>
 </project-private>

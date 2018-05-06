@@ -14,7 +14,7 @@ and open the template in the editor.
                 xmlns:f="http://xmlns.jcp.org/jsf/core"
                 >
     <ui:define name="title">
-       THÔNG TIN TÀI KHOẢN
+        THÔNG TIN TÀI KHOẢN
     </ui:define>
     <ui:define name="content">
         <div class="content-wrapper">
@@ -31,11 +31,11 @@ and open the template in the editor.
             </section>
             <section class="content">
                 <b:panel>
-                    <b:form>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <b:tabView tabPosition="left">
-                                    <b:tab title="Thông tin" style="width:150px;">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <b:tabView tabPosition="left" activeIndex="#{ThongTinTaiKhoanController.tabIndex}">
+                                <b:tab title="Thông tin" style="width:150px;">
+                                    <h:form id="formThongTinTaiKhoanCaNhan">
                                         <div class="box box-info">
                                             <div class="box-header with-border">
                                                 <h3 class="box-title">Thông tin tài khoản</h3>
@@ -59,9 +59,8 @@ and open the template in the editor.
                                                     <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">                                    
                                                         <h:outputLabel value="Tên hiển thị" />
                                                         <b:inputText  id="txtTenHienThi"
-                                                                      value="#{ThongTinTaiKhoanController.objTaiKhoan.tenHienThi}"
-                                                                      required="true"
-                                                                      requiredMessage="Vui lòng nhập tên hiển thị !"
+                                                                      binding="#{ThongTinTaiKhoanController.uicTenHienThi}"
+                                                                      value="#{ThongTinTaiKhoanController.objTaiKhoan.tenHienThi}"                                                                      
                                                                       a:placeholder="Nhập tên hiển thị ...">
                                                             <f:facet name="prepend">
                                                                 <b:iconAwesome name="fa-user" />
@@ -121,27 +120,53 @@ and open the template in the editor.
                                                 </div>
                                             </div>
                                         </div>
-                                    </b:tab>
-                                    <b:tab title="Đổi mật khẩu" style="width:150px;">
+                                    </h:form>
+                                </b:tab>
+                                <b:tab title="Đổi mật khẩu" style="width:150px;">
+                                    <h:form id="formDoiMatKhau">
                                         <div class="box box-info">
                                             <div class="box-header with-border">
                                                 <h3 class="box-title">Đổi mật khẩu</h3>
                                             </div>
                                             <div class="box-body">
-                                                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
-                                                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                                    <b:inputText label="Tên đăng nhập"
-                                                                 value="#{Login.objTaiKhoan.tenDangNhap}"
-                                                                 disabled="true"/>
+                                                <div class="row">
+                                                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3"></div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                                        <h:outputLabel value="Mật khẩu mới" />
+                                                        <b:inputSecret id="txtThongTinMatKhau" value="#{ThongTinTaiKhoanController.matKhau}"
+                                                                       binding="#{ThongTinTaiKhoanController.uicMatKhau}">
+                                                            <f:facet name="prepend">
+                                                                <b:iconAwesome name="fa-key" />
+                                                            </f:facet>
+                                                        </b:inputSecret>
+                                                        <b:message for="txtThongTinMatKhau" />
+
+                                                        <h:outputLabel value="Nhập lại mật khẩu mới" />
+                                                        <b:inputSecret id="txtThongTinMatKhau2" value="#{ThongTinTaiKhoanController.reMatKhau}"
+                                                                       binding="#{ThongTinTaiKhoanController.uicReMatKhau}">
+                                                            <f:facet name="prepend">
+                                                                <b:iconAwesome name="fa-key" />
+                                                            </f:facet>
+                                                        </b:inputSecret>
+                                                        <b:message for="txtThongTinMatKhau2" />
+                                                    </div>
+                                                </div>
+                                                <div class="row margin-t-10 text-center">
+                                                    <b:commandButton icon-awesome="fa-save"
+                                                                     class="btn-danger"
+                                                                     value="Cập nhật"
+                                                                     actionListener="#{ThongTinTaiKhoanController.actionUpdateMatKhau()}">
+                                                    </b:commandButton>
                                                 </div>
                                             </div>
                                         </div>
-                                    </b:tab>
-                                </b:tabView>
-                            </div>
+                                    </h:form>
+                                </b:tab>
+                            </b:tabView>
                         </div>
-                    </b:form>
+                    </div>
                 </b:panel>
             </section>
-        </div></ui:define>
+        </div>
+    </ui:define>
 </ui:composition>

@@ -17,6 +17,7 @@ import npvu.constant.Constant;
 import npvu.constant.MessageConstant;
 import npvu.dataprovider.TaiKhoanDataProvider;
 import npvu.model.TaiKhoanModel;
+import npvu.util.EncryptionUtils;
 import npvu.util.RoleUtils;
 import npvu.util.ShowGrowlUtils;
 import org.slf4j.Logger;
@@ -41,7 +42,7 @@ public class ThongTinTaiKhoanController implements Serializable{
     
     private final RoleUtils roleUtils               = new RoleUtils();
     
-    private UIComponent uicResultThongTin;
+    private UIComponent uicTenHienThi;
     
     private UIComponent uicMatKhau;
     
@@ -49,7 +50,13 @@ public class ThongTinTaiKhoanController implements Serializable{
     
     private TaiKhoanModel objTaiKhoan;
     
+    private String matKhau;
+    
+    private String reMatKhau;
+    
     private int viewMode = 0;
+    
+    private int tabIndex = 0;
     
     public ThongTinTaiKhoanController() {
         if(!Login.logined){
@@ -67,13 +74,65 @@ public class ThongTinTaiKhoanController implements Serializable{
     }
     
     public void actionUpdateThongTinTaiKhoan(){
-        if(tkProvider.updateTaiKhoan(objTaiKhoan)){
-            Login lg = new Login();
-            lg.refreshTaiKhoan(objTaiKhoan.getTenDangNhap());
-            showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
-        } else {
-            showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
+        tabIndex = 0;
+        matKhau = reMatKhau = null;
+        if(vaildFormThongTinTaiKhoan()){
+            if(tkProvider.updateTaiKhoan(objTaiKhoan)){
+                Login lg = new Login();
+                lg.refreshTaiKhoan(objTaiKhoan.getTenDangNhap());
+                showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
+            } else {
+                showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
+            }
         }
+    }
+    
+    public boolean vaildFormThongTinTaiKhoan(){
+        boolean vaild = true;
+        if(objTaiKhoan.getTenHienThi() == null || objTaiKhoan.getTenHienThi().isEmpty()){
+            showGrowl.showMessageError("Vui lòng nhập tên hiển thị !", uicTenHienThi);
+            vaild = false;
+        }
+        return vaild;
+    }
+    
+    public void actionUpdateMatKhau(){
+        tabIndex = 1;
+        if(vaildFormDoiMatKhau()){
+            objTaiKhoan.setMatKhau(EncryptionUtils.encryptMatKhau(matKhau));
+            if(tkProvider.updateTaiKhoan(objTaiKhoan)){
+                showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
+            } else {
+                showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
+            }
+        }
+    }
+    
+    public boolean vaildFormDoiMatKhau(){
+        boolean vaild = true;
+        if(matKhau == null || matKhau.isEmpty()){
+            showGrowl.showMessageError("Vui lòng nhập mật khẩu mới !", uicMatKhau);
+            vaild = false;
+        } else if(matKhau.length() < Constant.MIN_MATKHAU || matKhau.length() > Constant.MAX_MATKHAU){
+            showGrowl.showMessageError("Mật khẩu có độ dài từ "+Constant.MIN_MATKHAU+" đến "+Constant.MAX_MATKHAU+" !", uicMatKhau);
+            vaild = false;
+        }
+        if(reMatKhau == null || reMatKhau.isEmpty()){
+            showGrowl.showMessageError("Vui lòng nhập lại mật khẩu mới !", uicReMatKhau);
+            vaild = false;
+        } else if(reMatKhau.length() < Constant.MIN_MATKHAU || reMatKhau.length() > Constant.MAX_MATKHAU){
+            showGrowl.showMessageError("Mật khẩu có độ dài từ "+Constant.MIN_MATKHAU+" đến "+Constant.MAX_MATKHAU+" !", uicReMatKhau);
+            vaild = false;
+        }
+        if(vaild){
+            if(!matKhau.equals(reMatKhau)){
+                showGrowl.showMessageError("Mật khẩu không khớp !", uicMatKhau);
+                showGrowl.showMessageError("Mật khẩu không khớp !", uicReMatKhau);
+                matKhau = reMatKhau = null;
+                vaild = false;
+            }
+        }
+        return vaild;
     }
 
     public UI_UploadFileController getUiUploadFile() {
@@ -108,20 +167,44 @@ public class ThongTinTaiKhoanController implements Serializable{
         this.objTaiKhoan = objTaiKhoan;
     }
 
-    public UIComponent getUicResultThongTin() {
-        return uicResultThongTin;
-    }
-
-    public void setUicResultThongTin(UIComponent uicResultThongTin) {
-        this.uicResultThongTin = uicResultThongTin;
-    }
-
     public int getViewMode() {
         return viewMode;
     }
 
     public void setViewMode(int viewMode) {
         this.viewMode = viewMode;
+    }
+
+    public String getMatKhau() {
+        return matKhau;
+    }
+
+    public void setMatKhau(String matKhau) {
+        this.matKhau = matKhau;
+    }
+
+    public String getReMatKhau() {
+        return reMatKhau;
+    }
+
+    public void setReMatKhau(String reMatKhau) {
+        this.reMatKhau = reMatKhau;
+    }
+
+    public UIComponent getUicTenHienThi() {
+        return uicTenHienThi;
+    }
+
+    public void setUicTenHienThi(UIComponent uicTenHienThi) {
+        this.uicTenHienThi = uicTenHienThi;
+    }
+
+    public int getTabIndex() {
+        return tabIndex;
+    }
+
+    public void setTabIndex(int tabIndex) {
+        this.tabIndex = tabIndex;
     }
     
 }
