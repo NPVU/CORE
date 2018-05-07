@@ -6,6 +6,7 @@
 package npvu.dataprovider;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -92,7 +93,14 @@ public class BaiVietDataProvider implements Serializable{
                     + "SELECT * FROM danhmuc_baiviet WHERE danhmuc_baiviet_ten = '"+tenDanhMuc+"')")
                     .uniqueResult();
             session.getTransaction().commit();
-	} catch (Exception e) {
+	} catch(ClassCastException cce){
+            BigInteger intResult = (BigInteger) session.createSQLQuery("SELECT EXISTS("
+                    + "SELECT * FROM danhmuc_baiviet WHERE danhmuc_baiviet_ten = '"+tenDanhMuc+"')")
+                    .uniqueResult();
+            if(intResult.intValue() == 0){
+                result = false;
+            }
+        } catch (Exception e) {
             log.error("Lỗi Kiểm tra sự tồn tại danh mục <<" + tenDanhMuc + ">> {}", e);
             return false;
 	} finally {

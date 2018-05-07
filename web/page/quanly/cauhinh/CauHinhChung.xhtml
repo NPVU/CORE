@@ -1,0 +1,178 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="./../../../version_1.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:define name="title">
+        CẤU HÌNH CHUNG
+    </ui:define>
+    <ui:define name="content">
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    CẤU HÌNH CHUNG
+                    <small>Preview</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#{request.contextPath}/"><i class="fa fa-dashboard"></i> Home</a></li>
+                    <li class="active"><a href="#{request.contextPath}/quan-ly/cau-hinh-chung/">cấu hình chung</a></li>
+                </ol>
+            </section>
+            <section class="content">
+                <b:panel>
+                    <h:panelGroup rendered="#{CauHinhChungController.viewMode == 0}">
+                        <b:tabView>                                                    
+                            <b:tab id="tabWebsite" title="Website" style="width:100px;">
+                                <b:form>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                            <div class="box box-info">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">Thông tin Website</h3>
+                                                </div>
+                                                <div class="box-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right margin-t-5">
+                                                            <h:outputLabel value="Tên Website" />
+                                                        </div> 
+                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                            <b:inputText id="txtTenWebsite"
+                                                                         value=""
+                                                                         >
+                                                                             
+                                                            </b:inputText>                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-left margin-t-5">
+                                                            <p>
+                                                                <i>Tên Website sẽ được hiển thị ở <b>footer</b>.</i>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right margin-t-5">
+                                                            <h:outputLabel value="Tên title trang chủ" />
+                                                        </div> 
+                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                            <b:inputText id="txtTitleTrangChu"
+                                                                         value=""
+                                                                         >
+                                                                             
+                                                            </b:inputText>                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-left margin-t-5">
+                                                            <p>
+                                                                <i>Tên title trang chủ sẽ được hiển thị trên <b>title</b> trang chủ.</i>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right margin-t-5">
+                                                            <h:outputLabel value="Số điện thoại (Hotline)" />
+                                                        </div> 
+                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                            <b:inputText id="txtSoDienThoai"
+                                                                         value=""
+                                                                         >
+                                                                             
+                                                            </b:inputText>                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-left margin-t-5">
+                                                            <p>
+                                                                <i>Số điện thoại sẽ được hiển thị ở <b>footer</b>.</i>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right margin-t-5">
+                                                            <h:outputLabel value="Địa chỉ" />
+                                                        </div> 
+                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                            <b:inputText id="txtDiaChi"
+                                                                         value=""
+                                                                         >
+                                                                             
+                                                            </b:inputText>                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-left margin-t-5">
+                                                            <p>
+                                                                <i>Địa chỉ sẽ được hiển thị ở <b>footer</b>.</i>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>                                                    
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right margin-t-5">
+                                                            <h:outputLabel value="Email" />
+                                                        </div> 
+                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                            <b:inputText id="txtEmail"
+                                                                         value=""
+                                                                         >
+                                                                             
+                                                            </b:inputText>                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-left margin-t-5">
+                                                            <p>
+                                                                <i>Email sẽ được hiển thị ở <b>footer</b>.</i>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 text-right margin-t-5">
+                                                            <h:outputLabel value="Link Fanpage (facebook)" />
+                                                        </div> 
+                                                        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+                                                            <b:inputText id="txtFacebook"
+                                                                         value=""
+                                                                         >
+                                                                             
+                                                            </b:inputText>                                                            
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 text-left margin-t-5">
+                                                            <p>
+                                                                <i>Link Fanpage sẽ được gắn vào icon facebook.</i>
+                                                            </p>                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 margin-t-15">
+                                                        <div class="col-md-1 col-lg-1"></div>
+                                                        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 text-center">                                                
+                                                            <b:commandButton styleClass="btn btn-danger margin-2"
+                                                                             value="Cập nhật"
+                                                                             icon-awesome="fa-save">                                                                                                                             
+                                                            </b:commandButton>                                                                
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </b:form>
+                            </b:tab>   
+                            <b:tab id="tabEmail" title="Send Mail" style="width:100px;">
+                                
+                            </b:tab>
+                        </b:tabView>
+                        <b:modal id="modalAnhLogo" 
+                                 styleClass="modalAnhLogo IframeUpload"
+                                 title="Cập nhật ảnh">                                                               
+                            <iframe src="#{request.contextPath}/faces/page/UI_UploadFileImage.xhtml"
+                                    frameborder="0" width="100%" height="300px" scrolling="yes"/>
+                            <f:facet name="footer">
+                                <b:button icon-awesome="fa-close" value="Đóng" dismiss="modal" />
+                            </f:facet>
+                        </b:modal>                        
+                    </h:panelGroup>                    
+                    <h:form rendered="#{CauHinhChungController.viewMode == 500}">
+                        <ui:include src="../../error/500.xhtml"></ui:include>
+                    </h:form>
+                </b:panel>
+            </section>
+        </div>  
+    </ui:define>
+
+</ui:composition>

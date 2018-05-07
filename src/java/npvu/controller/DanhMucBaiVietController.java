@@ -72,6 +72,10 @@ public class DanhMucBaiVietController implements Serializable{
         dsDMBaiViet = bvProvider.getDanhSachDanhMucBaiViet(tenDanhMucFilter, trangThaiFilter);
     }
     
+    public List<DanhMucBaiVietModel> actionGetDanhSachDanhMucBaiViet(int trangThai){
+        return bvProvider.getDanhSachDanhMucBaiViet(null, trangThai);
+    }
+    
     public void preActionThemDanhMuc(){
         objDMBaiViet = new DanhMucBaiVietModel();
         editMode = false;

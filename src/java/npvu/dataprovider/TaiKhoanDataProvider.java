@@ -9,6 +9,7 @@ import npvu.model.TaiKhoanModel;
 import npvu.util.HibernateUtil;
 import java.util.List;
 import java.io.Serializable;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import npvu.constant.Constant;
 import org.hibernate.Session;
@@ -33,7 +34,14 @@ public class TaiKhoanDataProvider implements Serializable {
                     + "SELECT * FROM taikhoan WHERE taikhoan_tendangnhap = '"+tenDangNhap+"')")
                     .uniqueResult();
             session.getTransaction().commit();
-	} catch (Exception e) {
+	} catch(ClassCastException cce){
+            BigInteger intResult = (BigInteger) session.createSQLQuery("SELECT EXISTS("
+                            + "SELECT * FROM taikhoan WHERE taikhoan_tendangnhap = '"+tenDangNhap+"')")
+                            .uniqueResult();
+            if(intResult.intValue() == 0){
+                result = false;
+            }
+        } catch (Exception e) {
             log.error("Lỗi Kiểm tra sự tồn tại tài khoản <<" + tenDangNhap + ">> {}", e);
             return false;
 	} finally {
@@ -63,7 +71,8 @@ public class TaiKhoanDataProvider implements Serializable {
     public List<TaiKhoanModel> getDanhSachTaiKhoan(String tenDangNhapFilter, String tenHienThiFilter, String emailFilter, int trangThaiFilter){
         Session session = HibernateUtil.currentSession();
         List<TaiKhoanModel> dsTaiKhoan = new ArrayList();
-        String where = "";
+        String where = " rtk.role_id != "+Constant.ROLE_FULL
+                     + " AND rtk.role_id != "+Constant.ROLE_ADMIN_TAIKHOAN;
         if(tenDangNhapFilter != null){
             where += " AND taikhoan_tendangnhap like '%"+tenDangNhapFilter+"%' ";
         }
@@ -80,7 +89,11 @@ public class TaiKhoanDataProvider implements Serializable {
         }
         try {
             session.beginTransaction();
-            dsTaiKhoan = session.createSQLQuery("SELECT * FROM taikhoan WHERE 1 = 1 "+where).addEntity(TaiKhoanModel.class).list();
+            dsTaiKhoan = session.createSQLQuery("SELECT distinct tk.* "
+                    + " FROM taikhoan tk "
+                    + " LEFT JOIN roles_taikhoan rtk"
+                    + " ON rtk.taikhoan_id = tk.taikhoan_id "
+                    + " WHERE "+where).addEntity(TaiKhoanModel.class).list();
             session.getTransaction().commit();
 	} catch (Exception e) {
             log.error("Lỗi get danh sách tài khoản {}", e);

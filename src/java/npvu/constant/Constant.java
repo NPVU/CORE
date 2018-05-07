@@ -28,6 +28,7 @@ public class Constant {
     public static final int ROLE_FULL                      = 1;
     public static final int ROLE_ADMIN_TAIKHOAN            = 2;
     public static final int ROLE_ADMIN_BAIVIET             = 3;
+    public static final int ROLE_ADMIN_HETHONG             = 4;
     
     public static final String URL_DANGNHAP                = "/dang-nhap/";     /* Chú ý dấu "/" ở 2 đầu */
     

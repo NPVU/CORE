@@ -10,6 +10,7 @@ import java.util.List;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Map;
+import npvu.constant.Constant;
 import org.hibernate.Session;
 import org.hibernate.transform.Transformers;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class RoleDataProvider implements Serializable {
         List<Map> dsRole = new ArrayList();
         try {
             session.beginTransaction();
-            dsRole = session.createSQLQuery("SELECT * FROM roles")
+            dsRole = session.createSQLQuery("SELECT * FROM roles WHERE role_id != "+Constant.ROLE_FULL)
                     .setResultTransformer(Transformers.ALIAS_TO_ENTITY_MAP)
                     .list();
             session.getTransaction().commit();

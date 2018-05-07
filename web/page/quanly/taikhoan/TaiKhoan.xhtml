@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                     template="./../../../version_1.xhtml"
                     xmlns:h="http://xmlns.jcp.org/jsf/html"
@@ -136,12 +137,16 @@
                                                         </b:dataTableColumn>
                                                     </b:dataTable>
                                                 </div>
-                                            </div>
-
-                                        </div>
+                                            </div>                                            
+                                        </div>                                        
                                     </div>
                                 </div>
-                            </div>                            
+                            </div>      
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                    <i>Lưu ý: Hệ thống không hiển thị danh sách tài khoản có quyền quản lý tài khoản</i>
+                                </div>
+                            </div>
                             <b:modal class="verify-lock" title="YÊU CẦU XÁC NHẬN">
                                 <div class="row text-center">
                                     <label>
@@ -175,7 +180,7 @@
                                         <div class="box-body">
                                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">                                                
                                                 <b:tabView id="tabTaoTaiKhoan" activeIndex="#{taiKhoanController.tabIndex}">                                                    
-                                                    <b:tab title="Thông tin tài khoản" style="width:250px;">
+                                                    <b:tab title="Thông tin tài khoản" style="width:200px;">
                                                         <div class="col-md-1 col-lg-1"></div>
                                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
                                                             <h:outputLabel value="Tên hiển thị" />
@@ -239,7 +244,7 @@
                                                             </b:listLinks>                                                            
                                                         </div>
                                                     </b:tab>
-                                                    <b:tab title="Thông tin người dùng" style="width:250px;">
+                                                    <b:tab title="Thông tin người dùng" style="width:200px;">
                                                         <div class="col-md-1 col-lg-1"></div>
                                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
                                                             <h:outputLabel value="Họ tên" />
@@ -301,15 +306,16 @@
                                                             </div>
                                                         </div>
                                                     </b:tab>
-                                                    <b:tab title="Thiết lập quyền" style="width:250px;">
+                                                    <b:tab title="Thiết lập quyền" style="width:200px;">
                                                         <div class="col-md-1 col-lg-1"></div>
                                                         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 margin-t-5">
-                                                            <h:outputLabel value="Cấp quyền" />
-                                                            <h:selectManyCheckbox value="#{taiKhoanController.selectRoles}">                                                                    
+                                                            <h:outputLabel value="Cấp quyền" />                                                            
+                                                            <h:selectManyCheckbox value="#{taiKhoanController.selectRoles}">                                                                            
                                                                 <f:selectItems value="#{taiKhoanController.actionGetDanhSachRole()}" var="role"
                                                                                itemLabel="#{role.get('role_ten')}" 
                                                                                itemValue="#{role.get('role_id')}" />                                                             
                                                             </h:selectManyCheckbox>
+                                                            
                                                         </div>
                                                         <div class="col-md-1 col-lg-1"></div>
                                                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 margin-t-15">                                                            

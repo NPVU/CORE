@@ -113,6 +113,7 @@ public class TaiKhoanController implements Serializable{
         log.info("***** Tạo tài khoản mới <actionUpdateTaiKhoan> *****");
         long tapTinID;
         objTaiKhoan.setNgayTao(DateUtils.getCurrentDate());
+        objTaiKhoan.setHoatdong(true);
         if ( editMode || actionVaildFormTaoTaiKhoan()) {
             if(SessionBean.statusUpload != null && SessionBean.statusUpload == true){
                 tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_AVATAR);
