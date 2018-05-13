@@ -42,7 +42,7 @@ and open the template in the editor.
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu tree" data-widget="tree">
      
-          <h:panelGroup rendered="true">
+          <h:panelGroup rendered="#{Login.checkRole(Constant.role_full) or Login.checkRole(Constant.role_admin_taikhoan)}">
             <li class="header">QUẢN LÝ TÀI KHOẢN NGƯỜI DÙNG</li>
             <li>
               <a href="#{request.contextPath}/quan-ly/tai-khoan/">
@@ -63,7 +63,7 @@ and open the template in the editor.
             </li>
         </h:panelGroup>
           
-        <h:panelGroup rendered="true">
+          <h:panelGroup rendered="#{Login.checkRole(Constant.role_full) or Login.checkRole(Constant.role_admin_baiviet)}">
             <li class="header">QUẢN LÝ BÀI VIẾT</li>
             <li>
               <a href="#{request.contextPath}/quan-ly/danh-muc-bai-viet/">
@@ -86,7 +86,7 @@ and open the template in the editor.
           
           
         
-        <h:panelGroup rendered="true">
+          <h:panelGroup rendered="#{Login.checkRole(Constant.role_full) or Login.checkRole(Constant.role_admin_hethong)}">
             <li class="header">CẤU HÌNH HỆ THỐNG</li>
             <li>
               <a href="#{request.contextPath}/quan-ly/cau-hinh-chung/">

@@ -5,11 +5,13 @@
  */
 package npvu.util;
 
+import java.io.Serializable;
+
 /**
  *
  * @author npvu
  */
-public class ValidateUtils {
+public class ValidateUtils implements Serializable{
     
     private String[] specialChar    = {"`","~","!","@","#","$","%","^","&","*","(",")","_","-","=","+","{","}",
                                        "[","]","\\","|",";",":","'","\"",",","<",".",">","/","?"};

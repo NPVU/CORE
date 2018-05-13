@@ -50,35 +50,35 @@ and open the template in the editor.
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7" style="margin-bottom: 10px;">
                                                         <h:panelGroup id="groupAvatar" >
-                                                        <h:graphicImage library="resources" name="#{FileConstant.path_upload_avatar}#{ThongTinTaiKhoanController.objTapTin.tenLuuTru}"
-                                                                        class="user-image inline" alt="User Image" width="160" height="100"
-                                                                        id="imgAvatar"
-                                                                        rendered="#{Login.logined}"/>  
-                                                        <b:button value="Thay đổi"
-                                                                  icon-awesome="fa-image"
-                                                                  onclick="$('.modalAnhDaiDien').modal();"                                                                           
-                                                                  class="text-info margin-2 inline"
-                                                                  tooltip="Thay đổi ảnh đại diện"
-                                                                  rendered="#{!SessionBean.statusUpload}"/>
-                                                        <h:panelGroup rendered="#{SessionBean.statusUpload}" >
-                                                            <b:iconAwesome name="arrow-right"
-                                                                           class="text-blue btn-icon margin-2"
-                                                                           tooltip="Ảnh đại diện sẽ thay đổi thành" />
-                                                            <h:graphicImage library="resources" name="#{FileConstant.path_upload_temp}#{SessionBean.fileName}"
-                                                                            class="user-image inline" alt="User Image" width="160" height="100"/>                                                                                                                   
-                                                            <b:iconAwesome name="close" onclick="$('.btnCancelUpload').click();"
-                                                                           class="text-red btn-icon margin-2"
-                                                                           style="position: absolute;"
-                                                                           tooltip="Xóa tùy chọn thay đổi !" />
-                                                            <b:iconAwesome name="refresh" onclick="$('.modalAnhDaiDien').modal();"
-                                                                           class="text-info btn-icon margin-2"                                                                          
-                                                                           tooltip="Chọn lại ảnh !" />                                                            
-                                                            <b:commandButton class="btnCancelUpload"
-                                                                             style="display:none"
-                                                                             actionListener="#{UI_UploadFileController.resetValueFileToSessionFromHTML()}">
-                                                                <f:ajax render="groupAvatar"/>
-                                                            </b:commandButton>
-                                                        </h:panelGroup>
+                                                            <h:graphicImage library="resources" name="#{FileConstant.path_upload_avatar}#{ThongTinTaiKhoanController.objTapTin.tenLuuTru}"
+                                                                            class="user-image inline" alt="User Image" width="160" height="100"
+                                                                            id="imgAvatar"
+                                                                            rendered="#{Login.logined}"/>  
+                                                            <b:button value="Thay đổi"
+                                                                      icon-awesome="fa-image"
+                                                                      onclick="$('.modalAnhDaiDien').modal();"                                                                           
+                                                                      class="text-info margin-2 inline"
+                                                                      tooltip="Thay đổi ảnh đại diện"
+                                                                      rendered="#{!SessionBean.statusUpload}"/>
+                                                            <h:panelGroup rendered="#{SessionBean.statusUpload}" >
+                                                                <b:iconAwesome name="arrow-right"
+                                                                               class="text-blue btn-icon margin-2"
+                                                                               tooltip="Ảnh đại diện sẽ thay đổi thành" />
+                                                                <h:graphicImage library="resources" name="#{FileConstant.path_upload_temp}#{SessionBean.fileName}"
+                                                                                class="user-image inline" alt="User Image" width="160" height="100"/>                                                                                                                   
+                                                                <b:iconAwesome name="close" onclick="$('.btnCancelUpload').click();"
+                                                                               class="text-red btn-icon margin-2"
+                                                                               style="position: absolute;"
+                                                                               tooltip="Xóa tùy chọn thay đổi !" />
+                                                                <b:iconAwesome name="refresh" onclick="$('.modalAnhDaiDien').modal();"
+                                                                               class="text-info btn-icon margin-2"                                                                          
+                                                                               tooltip="Chọn lại ảnh !" />                                                            
+                                                                <b:commandButton class="btnCancelUpload"
+                                                                                 style="display:none"
+                                                                                 actionListener="#{UI_UploadFileController.resetValueFileToSessionFromHTML()}">
+                                                                    <f:ajax render="groupAvatar"/>
+                                                                </b:commandButton>
+                                                            </h:panelGroup>
                                                         </h:panelGroup>
                                                     </div>
                                                 </div>

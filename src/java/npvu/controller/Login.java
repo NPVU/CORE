@@ -7,6 +7,7 @@ package npvu.controller;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -21,6 +22,7 @@ import npvu.dataprovider.TaiKhoanDataProvider;
 import npvu.dataprovider.TapTinDataProvider;
 import npvu.model.TaiKhoanModel;
 import npvu.model.TapTinModel;
+import npvu.session.SessionBean;
 import npvu.util.EncryptionUtils;
 import npvu.util.ShowGrowlUtils;
 
@@ -107,10 +109,12 @@ public class Login implements Serializable{
     }
     
     public void logout(){
-        logined = false;
+        logined     = false;
         objTaiKhoan = null;
-        thoiGian = null;
+        thoiGian    = null;
         tempMatKhau = null;
+        roles       = null;
+        SessionBean.resetSession();
         try {            
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "/");
@@ -119,6 +123,15 @@ public class Login implements Serializable{
         }
     }
 
+    public boolean checkRole(String role) {
+        if(roles == null){
+            return false;
+        }
+        return Arrays.asList(roles).contains(role);
+    }
+    
+    /* Getter && Setter */
+    
     public boolean isLogined() {
         return logined;
     }

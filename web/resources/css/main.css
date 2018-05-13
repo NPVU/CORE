@@ -54,6 +54,16 @@ a:hover {
 .btn-add-position {
     position: absolute !important;
 }
+@media (max-width: 992px){
+    .text-config{
+        text-align: left !important;
+    }
+}
+@media (min-width: 992px){
+    .text-config{
+        text-align: right !important;
+    }
+}
 @media screen and (max-width: 767px){
     .dataTables_filter {
         text-align: left !important;

@@ -49,5 +49,6 @@ Contributor(s):
     <mapping class="npvu.model.TapTinModel"/>
     <mapping class="npvu.model.DanhMucBaiVietModel"/>
     <mapping class="npvu.model.BaiVietModel"/>
+    <mapping class="npvu.model.ConfigWebsiteModel"/>
   </session-factory>
 </hibernate-configuration>

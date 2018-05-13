@@ -24,6 +24,8 @@ public class FileConstant {
     
     private String path_upload_temp                     = PATH_UPLOAD_TEMP;
     private String path_upload_avatar                   = PATH_UPLOAD_AVATAR;
+    private String path_upload_image                    = PATH_UPLOAD_IMAGE;
+    
     public String getPath_upload_temp() {
         return path_upload_temp;
     }
@@ -38,5 +40,13 @@ public class FileConstant {
 
     public void setPath_upload_avatar(String path_upload_avatar) {
         this.path_upload_avatar = path_upload_avatar;
+    }
+
+    public String getPath_upload_image() {
+        return path_upload_image;
+    }
+
+    public void setPath_upload_image(String path_upload_image) {
+        this.path_upload_image = path_upload_image;
     }
 }

@@ -123,6 +123,8 @@ public class ThongTinTaiKhoanController implements Serializable{
                 showGrowl.showMessageFatal(MessageConstant.MESSAGE_ERROR_UPDATE);
             }
         }
+        matKhau = null;
+        reMatKhau = null;
     }
     
     public boolean vaildFormDoiMatKhau(){

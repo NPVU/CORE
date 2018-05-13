@@ -20,7 +20,7 @@ public class Constant {
     public static final int MIN_TENDANHMUC                 = 3;
     public static final int MAX_TENDANHMUC                 = 64;
     
-    public static final int MIN_MATKHAU                    = 8;
+    public static final int MIN_MATKHAU                    = 6;
     public static final int MAX_MATKHAU                    = 32;
     
     public static final int ROLE_DEFAULT                   = 100;
@@ -42,15 +42,20 @@ public class Constant {
     public static final String URL_ERROR_500               = "/error/500/";
     
     /* Hằng số cho xhtml (Phải có getter) */
-    private final int min_tendangnhap                      = 6;
-    private final int max_tendangnhap                      = 32;
-    private final int min_tendanhmuc                       = 3;
-    private final int max_tendanhmuc                       = 64;
+    private final int min_tendangnhap                      = MIN_TENDANGNHAP;
+    private final int max_tendangnhap                      = MAX_TENDANGNHAP;
+    private final int min_tendanhmuc                       = MIN_TENDANHMUC;
+    private final int max_tendanhmuc                       = MAX_TENDANHMUC;
     
-    private final int min_matkhau                          = 8;
-    private final int max_matkhau                          = 32;
+    private final int min_matkhau                          = MIN_MATKHAU;
+    private final int max_matkhau                          = MAX_MATKHAU;
         
-    
+    private final int role_default                         = ROLE_DEFAULT;
+    private final int role_guest                           = ROLE_GUEST;
+    private final int role_full                            = ROLE_FULL;
+    private final int role_admin_taikhoan                  = ROLE_ADMIN_TAIKHOAN;
+    private final int role_admin_baiviet                   = ROLE_ADMIN_BAIVIET;
+    private final int role_admin_hethong                   = ROLE_ADMIN_HETHONG;
     
     /* Getter */
 
@@ -76,6 +81,30 @@ public class Constant {
 
     public int getMax_tendanhmuc() {
         return max_tendanhmuc;
+    }
+
+    public int getRole_default() {
+        return role_default;
+    }
+
+    public int getRole_guest() {
+        return role_guest;
+    }
+
+    public int getRole_full() {
+        return role_full;
+    }
+
+    public int getRole_admin_taikhoan() {
+        return role_admin_taikhoan;
+    }
+
+    public int getRole_admin_baiviet() {
+        return role_admin_baiviet;
+    }
+
+    public int getRole_admin_hethong() {
+        return role_admin_hethong;
     }
    
 }

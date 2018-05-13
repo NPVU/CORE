@@ -21,6 +21,13 @@ public class SessionBean implements Serializable{
     public static String fileName;
     public static String fileRealName;
     
+    public static void resetSession(){
+        statusUpload = false;
+        pathFile = null;
+        fileName = null;
+        fileRealName = null;
+    }
+    
     public String getFileName(){
         return fileName;
     }
