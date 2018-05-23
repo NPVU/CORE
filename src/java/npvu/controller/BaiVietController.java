@@ -56,9 +56,11 @@ public class BaiVietController implements Serializable{
     
     private BaiVietModel objBaiViet;
     
-    private int viewMode;                                             // 0 là form danh sách, 1 là form cập nhật
+    private boolean hienThiTrangChu;
     
     private boolean editMode;
+    
+    private int viewMode;                                             // 0 là form danh sách, 1 là form cập nhật
     
     private int tabIndex                            = 0;
     
@@ -104,15 +106,17 @@ public class BaiVietController implements Serializable{
     public void preActionThemBaiViet(){
         objBaiViet = new BaiVietModel();
         viewMode = 1;
+        hienThiTrangChu = false;
         editMode = false;
         tabIndex = 0;
     }
     
-    public void preAcrionEditBaiViet(long baiVietID){
+    public void preActionEditBaiViet(long baiVietID){
         objBaiViet = new BaiVietModel();
         objBaiViet = bvProvider.getBaiVietByID(baiVietID);
         viewMode = 1;
         editMode = true;
+        hienThiTrangChu = objBaiViet.getHienThiTrangChu()==1;
         tabIndex = 0;
     }
     
@@ -133,6 +137,11 @@ public class BaiVietController implements Serializable{
             if(SessionBean.statusUpload != null && SessionBean.statusUpload == true){
                     tapTinID = uiUploadFile.actionUpdateTapTin(FileConstant.PATH_UPLOAD_IMAGE);
                     objBaiViet.setTapTinID(tapTinID);
+            }
+            if(hienThiTrangChu){
+                objBaiViet.setHienThiTrangChu(1);
+            } else {
+                objBaiViet.setHienThiTrangChu(0);
             }
             if(bvProvider.updateBaiViet(objBaiViet)){
                 showGrowl.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_UPDATE);
@@ -159,7 +168,7 @@ public class BaiVietController implements Serializable{
         }
         return vaild;
     }
-    
+            
     public void actionSelectBaiViet(long baiVietID){
         objBaiViet = bvProvider.getBaiVietByID(baiVietID);
     }
@@ -176,7 +185,7 @@ public class BaiVietController implements Serializable{
     public void actionChangeViewMode(int viewMode){
         this.viewMode = viewMode;
     }
-
+    
     public int getViewMode() {
         return viewMode;
     }
@@ -287,6 +296,14 @@ public class BaiVietController implements Serializable{
 
     public void setXuatBanFilter(int xuatBanFilter) {
         this.xuatBanFilter = xuatBanFilter;
+    }
+
+    public boolean isHienThiTrangChu() {
+        return hienThiTrangChu;
+    }
+
+    public void setHienThiTrangChu(boolean hienThiTrangChu) {
+        this.hienThiTrangChu = hienThiTrangChu;
     }
     
 }

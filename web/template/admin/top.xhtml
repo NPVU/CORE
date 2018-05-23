@@ -9,15 +9,16 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <header class="main-header">
 
     <!-- Logo -->
     <a href="#{request.contextPath}/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>VVY</b></span>
+      <span class="logo-mini"><b>VT</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>VVY</b> ADMIN</span>
+      <span class="logo-lg"><b>VIETTEL</b></span>
     </a>
 
     <!-- Header Navbar: style can be found in header.less -->
@@ -30,7 +31,7 @@ and open the template in the editor.
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
+<!--          <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
               <span class="label label-success">4</span>
@@ -38,9 +39,9 @@ and open the template in the editor.
             <ul class="dropdown-menu">
               <li class="header">You have 4 messages</li>
               <li>
-                <!-- inner menu: contains the actual data -->
+                 inner menu: contains the actual data 
                 <ul class="menu">
-                  <li><!-- start message -->
+                  <li> start message 
                     <a href="#">
                       <div class="pull-left">
                         <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
@@ -52,7 +53,7 @@ and open the template in the editor.
                       <p>Why not buy a new awesome theme?</p>
                     </a>
                   </li>
-                  <!-- end message -->
+                   end message 
                   <li>
                     <a href="#">
                       <div class="pull-left">
@@ -105,9 +106,9 @@ and open the template in the editor.
               </li>
               <li class="footer"><a href="#">See All Messages</a></li>
             </ul>
-          </li>
+          </li>-->
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+<!--          <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <span class="label label-warning">10</span>
@@ -115,7 +116,7 @@ and open the template in the editor.
             <ul class="dropdown-menu">
               <li class="header">You have 10 notifications</li>
               <li>
-                <!-- inner menu: contains the actual data -->
+                 inner menu: contains the actual data 
                 <ul class="menu">
                   <li>
                     <a href="#">
@@ -147,9 +148,9 @@ and open the template in the editor.
               </li>
               <li class="footer"><a href="#">View all</a></li>
             </ul>
-          </li>
+          </li>-->
           <!-- Tasks: style can be found in dropdown.less -->
-          <li class="dropdown tasks-menu">
+<!--          <li class="dropdown tasks-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-flag-o"></i>
               <span class="label label-danger">9</span>
@@ -157,9 +158,9 @@ and open the template in the editor.
             <ul class="dropdown-menu">
               <li class="header">You have 9 tasks</li>
               <li>
-                <!-- inner menu: contains the actual data -->
+                 inner menu: contains the actual data 
                 <ul class="menu">
-                  <li><!-- Task item -->
+                  <li> Task item 
                     <a href="#">
                       <h3>
                         Design some buttons
@@ -172,8 +173,8 @@ and open the template in the editor.
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
+                   end task item 
+                  <li> Task item 
                     <a href="#">
                       <h3>
                         Create a nice theme
@@ -186,8 +187,8 @@ and open the template in the editor.
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
+                   end task item 
+                  <li> Task item 
                     <a href="#">
                       <h3>
                         Some task I need to do
@@ -200,8 +201,8 @@ and open the template in the editor.
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
-                  <li><!-- Task item -->
+                   end task item 
+                  <li> Task item 
                     <a href="#">
                       <h3>
                         Make beautiful transitions
@@ -214,70 +215,74 @@ and open the template in the editor.
                       </div>
                     </a>
                   </li>
-                  <!-- end task item -->
+                   end task item 
                 </ul>
               </li>
               <li class="footer">
                 <a href="#">View all tasks</a>
               </li>
             </ul>
-          </li>
+          </li>-->
           <!-- User Account: style can be found in dropdown.less -->
-          <li class="dropdown user user-menu">
-            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                <h:graphicImage library="resources" name="#{FileConstant.path_upload_avatar}#{Login.objTapTin.tenLuuTru}"
-                                class="user-image" alt="User Image"
-                                rendered="#{Login.logined}"/>
-                <h:graphicImage library="resources" name="img/user2-160x160.jpg"
-                                class="user-image" alt="User Image"
-                                rendered="#{!Login.logined}"/>
-                <span class="hidden-xs">#{Login.objTaiKhoan.tenHienThi}</span>
-            </a>
-            <ul class="dropdown-menu">
-              <!-- User image -->
-              <li class="user-header">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+          <c:if test="#{Login.logined}">
+              <li class="dropdown user user-menu">
+                  <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
+                      <h:graphicImage library="resources" name="#{FileConstant.path_upload_avatar}#{Login.objTapTin.tenLuuTru}"
+                                      class="user-image" alt="User Image"
+                                      rendered="#{Login.logined}"/>
+                      <h:graphicImage library="resources" name="img/user2-160x160.jpg"
+                                      class="user-image" alt="User Image"
+                                      rendered="#{!Login.logined}"/>
+                      <span class="hidden-xs">#{Login.objTaiKhoan.tenHienThi}</span>
+                  </a>
+                  <ul class="dropdown-menu">
+                      <!-- User image -->
+                      <li class="user-header">
+                          <h:graphicImage library="resources" name="#{FileConstant.path_upload_avatar}#{Login.objTapTin.tenLuuTru}"
+                                          class="img-circle" alt="User Image"/>
+                          <p>
+                            #{Login.objTaiKhoan.tenHienThi}
+                              <small></small>
+                          </p>
+                      </li>
+                      <!-- Menu Body -->
+<!--                      <li class="user-body">
+                          <div class="row">
+                              <div class="col-xs-4 text-center">
+                                  <a href="#">Followers</a>
+                              </div>
+                              <div class="col-xs-4 text-center">
+                                  <a href="#">Sales</a>
+                              </div>
+                              <div class="col-xs-4 text-center">
+                                  <a href="#">Friends</a>
+                              </div>
+                          </div>
+                           /.row 
+                      </li>-->
+                      <!-- Menu Footer-->
 
-                <p>
-                  #{Login.objTaiKhoan.tenHienThi}
-                  <small></small>
-                </p>
+                      <li class="user-footer">
+                          <div class="pull-left">
+                              <a href="#{request.contextPath}/quan-ly/thong-tin-tai-khoan/" class="btn btn-default btn-flat">Thông tin</a>
+                          </div>
+                          <div class="pull-right">
+                              <b:form>
+                                  <b:commandLink class="btn btn-default btn-flat">
+                                      Thoát
+                                      <f:ajax listener="#{Login.logout()}" />
+                                  </b:commandLink>
+                              </b:form>
+                          </div>
+                      </li>
+
+                  </ul>
               </li>
-              <!-- Menu Body -->
-              <li class="user-body">
-                <div class="row">
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Followers</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Sales</a>
-                  </div>
-                  <div class="col-xs-4 text-center">
-                    <a href="#">Friends</a>
-                  </div>
-                </div>
-                <!-- /.row -->
-              </li>
-              <!-- Menu Footer-->
-              <li class="user-footer">
-                <div class="pull-left">
-                    <a href="#{request.contextPath}/quan-ly/thong-tin-tai-khoan/" class="btn btn-default btn-flat">Thông tin</a>
-                </div>
-                <div class="pull-right">
-                    <b:form>
-                        <b:commandLink class="btn btn-default btn-flat">
-                            Đăng xuất
-                            <f:ajax listener="#{Login.logout()}" />
-                        </b:commandLink>
-                    </b:form>
-                </div>
-              </li>
-            </ul>
-          </li>
+          </c:if>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+    <!--          <li>
+                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+              </li>-->
         </ul>
       </div>
 

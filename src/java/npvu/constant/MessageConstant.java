@@ -16,6 +16,7 @@ public class MessageConstant {
     
     public static final String MESSAGE_USERNAME_NOT_EXISTS      = " Tên đăng nhập không tồn tại, Vui lòng kiểm tra lại thông tin !";
     public static final String MESSAGE_USERNAME_EXISTS          = " Tên đăng nhập đã tồn tại !";
+    public static final String MESSAGE_ACCOUNT_LOCKED           = " Tài khoản đang bị khóa !";
     public static final String MESSAGE_PASSWORD_NOT_SAME        = " Mật khẩu không khớp !";
     public static final String MESSAGE_PASSWORD_FALSE           = " Mật khẩu không đúng, Vui lòng kiểm tra lại thông tin !";
     

@@ -87,7 +87,10 @@ public class TaiKhoanController implements Serializable{
         if(roleUtils.checkRole(Constant.ROLE_ADMIN_TAIKHOAN)){
             actionGetDanhSachTaiKhoan();
             viewMode = 0;
-        } 
+        } else {
+            viewMode = Constant.CODE_ERROR_500;
+        }
+             
     }
     
     public void preActionTaoTaiKhoan(){

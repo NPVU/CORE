@@ -5,6 +5,7 @@
  */
 package npvu.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -16,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import npvu.constant.FileConstant;
 import npvu.constant.MessageConstant;
 import npvu.dataprovider.RoleDataProvider;
 import npvu.dataprovider.TaiKhoanDataProvider;
@@ -48,7 +50,7 @@ public class Login implements Serializable{
     private String urlCurrent;
     
     public Login() {
-        
+
     }
     
     public void preLogin(){
@@ -69,10 +71,13 @@ public class Login implements Serializable{
         
         // Lấy tài khoản từ database
         TaiKhoanDataProvider tkProvider     = new TaiKhoanDataProvider();               
-        objTaiKhoan                         = tkProvider.getTaiKhoanByTenDangNhap(tempTaiKhoan);        
-        
+        objTaiKhoan                         = tkProvider.getTaiKhoanByTenDangNhap(tempTaiKhoan);                
         if(objTaiKhoan != null){
             if(objTaiKhoan.getMatKhau().equals(EncryptionUtils.encryptMatKhau(tempMatKhau))){
+                if(!objTaiKhoan.isHoatdong()){
+                    showGrow.showMessageError(MessageConstant.MESSAGE_ACCOUNT_LOCKED);
+                    return;
+                }
                 RoleDataProvider roleProvider       = new RoleDataProvider(); 
                 TapTinDataProvider tapTinProvider   = new TapTinDataProvider();
                 objTapTin       = tapTinProvider.getTapTin(objTaiKhoan.getTapTinID());
@@ -81,6 +86,13 @@ public class Login implements Serializable{
                 roles           = roleProvider.getDanhSachRoleByTaiKhoan(objTaiKhoan.getId());
                 tempTaiKhoan    = null;               
                 showGrow.showMessageSuccess(MessageConstant.MESSAGE_SUCCESS_LOGIN);
+                
+                // Kiểm tra ảnh avatar
+                if(objTapTin == null){
+                    objTapTin = new TapTinModel();
+                    objTapTin.setTenLuuTru(FileConstant.FILE_NAME_AVATAR_DEFAULT);
+                } 
+                                               
                 try {
                     ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
                     ec.redirect(ec.getRequestContextPath() + "/");
@@ -111,6 +123,7 @@ public class Login implements Serializable{
     public void logout(){
         logined     = false;
         objTaiKhoan = null;
+        objTapTin   = null;
         thoiGian    = null;
         tempMatKhau = null;
         roles       = null;

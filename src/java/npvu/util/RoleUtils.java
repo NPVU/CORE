@@ -32,16 +32,8 @@ public class RoleUtils implements Serializable{
     }
     
     public boolean checkRole(int roleID){        
-        if(!Login.logined){
-            try {
-                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                if(!ec.isResponseCommitted()){
-                    ec.redirect(ec.getRequestContextPath() + Constant.URL_DANGNHAP);
-                } 
-                return false;
-            } catch (IOException ex) {;               
-                log.error("<<< Chưa đăng nhập >>>");
-            }
+        if(!Login.logined){            
+            return false;
         } else {
             arrRole = Login.roles;
             for(String role : arrRole){
@@ -49,13 +41,7 @@ public class RoleUtils implements Serializable{
                     return true;
                 }
             }
-        }        
-        try {
-                ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + Constant.URL_ERROR_401);                 
-            } catch (IOException ex) {
-                log.error("<<< Không có quyền truy cập >>>");
-            }
+        }                
         return false;
     }
 }

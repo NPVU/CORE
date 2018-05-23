@@ -59,6 +59,9 @@ public class BaiVietModel implements Serializable {
     
     @Column(name = "taptin_id")
     private long tapTinID;
+    
+    @Column(name = "baiviet_hienthi_trangchu")
+    private int hienThiTrangChu = 0;
 
     @Transient
     private String tenDanhMuc;
@@ -151,6 +154,14 @@ public class BaiVietModel implements Serializable {
 
     public void setTapTinID(long tapTinID) {
         this.tapTinID = tapTinID;
+    }
+
+    public int getHienThiTrangChu() {
+        return hienThiTrangChu;
+    }
+
+    public void setHienThiTrangChu(int hienThiTrangChu) {
+        this.hienThiTrangChu = hienThiTrangChu;
     }
 
 }

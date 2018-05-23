@@ -35,7 +35,7 @@ public class DanhMucBaiVietController implements Serializable{
     
     private UIComponent uicTrangThai;
     
-    private List<DanhMucBaiVietModel> dsDMBaiViet   = new ArrayList<>();;
+    private List<DanhMucBaiVietModel> dsDMBaiViet   = new ArrayList<>();
     
     private DanhMucBaiVietModel objDMBaiViet;
     

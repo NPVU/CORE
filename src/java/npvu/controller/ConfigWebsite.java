@@ -68,7 +68,7 @@ public class ConfigWebsite implements Serializable{
             objBanner   = ttProvider.getTapTin(confWebsite.getTapTinID());
         } else {
             confWebsite = new ConfigWebsiteModel();
-        }    
+        }  
     }
     
     public void actionUpdateConfigWebsite(){

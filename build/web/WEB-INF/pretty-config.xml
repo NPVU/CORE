@@ -19,7 +19,10 @@ and open the template in the editor.
         <pattern value="/login/" />
         <view-id value="/faces/page/login.xhtml" />
     </url-mapping>
-    
+    <url-mapping id="QuanLy">
+        <pattern value="/quan-ly/" />
+        <view-id value="/faces/page/quanly/index.xhtml" />
+    </url-mapping>
     <url-mapping id="QuanLyTaiKhoan_1">
         <pattern value="/quan-ly/tai-khoan/" />
         <view-id value="/faces/page/quanly/taikhoan/TaiKhoan.xhtml" />
@@ -52,6 +55,10 @@ and open the template in the editor.
     <url-mapping id="QuanLyPreviewBaiViet">
         <pattern value="/quan-ly/bai-viet/preview/" />
         <view-id value="/faces/page/quanly/baiviet/Preview.xhtml" />
+    </url-mapping>
+    <url-mapping id="ViewMenu">
+        <pattern value="/view/" />
+        <view-id value="/faces/page/view/ViewMenu.xhtml" />
     </url-mapping>
     
     <url-mapping id="QuanLyPreviewBaiViet">

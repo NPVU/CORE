@@ -22,6 +22,8 @@ public class FileConstant {
     
     public static final String DAUCACH_TENFILE          = "_";
     
+    public static final String FILE_NAME_AVATAR_DEFAULT = "user_default.png";
+    
     private String path_upload_temp                     = PATH_UPLOAD_TEMP;
     private String path_upload_avatar                   = PATH_UPLOAD_AVATAR;
     private String path_upload_image                    = PATH_UPLOAD_IMAGE;
